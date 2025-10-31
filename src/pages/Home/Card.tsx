@@ -3,42 +3,22 @@ import { MapPin, User } from "lucide-react";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { Link } from "react-router";
+import type { IProject } from "@/types";
 
 export interface CardProps {
-  i: number;
-  id: string;
-  name: string;
-  client: string;
-  location: string;
-  size?: string;
-  type: string;
-  status: string;
-  description: string;
-  image: string;
-  year: string | number;
+  project: IProject;
+  index?: number;
   progress: MotionValue<number>;
   range: [number, number];
   targetScale: number;
-  color: string;
+  color?: string
 }
 
-const Card: React.FC<CardProps> = ({
-  i,
-  id,
-  name,
-  client,
-  location,
-  type,
-  status,
-  description,
-  image,
-  year,
-  progress,
-  range,
-  targetScale,
-  color,
+const Card: React.FC<CardProps> = ({index, project, progress, range, targetScale, color,
 }) => {
   const container = useRef<HTMLDivElement | null>(null);
+  const {name, client, location, size, type, status, description, image, year, slug} = project
+  console.log(index)
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -51,13 +31,13 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       ref={container}
-      className="h-[100vh] flex items-center justify-center sticky top-40 md:top-40  sm:px-6 md:px-8"
+      className="h-[100vh] flex items-center justify-center sticky top-40 md:top-40"
     >
       <motion.div
         style={{
           backgroundColor: color,
           scale: cardScale,
-          top: `calc(-20% + ${i * 40}px)`,
+          top: `calc(-20% + ${index as number * 40}px)`,
         }}
         className="flex flex-col relative -top-[25%] min-h-[400px] container border border-primary mx-auto shadow-sm rounded-4xl"
       >
@@ -127,7 +107,7 @@ const Card: React.FC<CardProps> = ({
             {/* CTA Buttons */}
             <div className="pt-6">
               <Button size="lg" className="flex-1 text-white">
-                <Link to={`/projects/${id}`}>Learn More</Link>                
+                <Link to={`/projects/${slug}`}>Learn More</Link>                
               </Button>
             </div>
           </div>

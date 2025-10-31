@@ -1,10 +1,18 @@
 import App from "@/App";
+import DashboardLayout from "@/layout/DashboardLayout";
 import About from "@/pages/About/About";
+import AdminLogin from "@/pages/Auth/AdminLogin";
 import Contact from "@/pages/Contact/Contact";
+import DashboardOverview from "@/pages/Dashboard/DashboardOverview";
+import AllImagesDashboard from "@/pages/Dashboard/Gallery/All-Images/AllImagesDashboard";
+import UploadImagesDashboard from "@/pages/Dashboard/Gallery/UploadImages/UploadImagesDashboard";
+import AllProjectDashboard from "@/pages/Dashboard/Projects/allProject/AllProjectDashboard";
+import CreateProjectDashboard from "@/pages/Dashboard/Projects/createProject/CreateProjectDashboard";
 import Home from "@/pages/Home/Home";
 import Projects from "@/pages/Projects/Projects";
 import SingleProject from "@/pages/Projects/SingleProject";
 import { createBrowserRouter } from "react-router";
+import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +20,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true, //by defaul tasks show krbe
+        index: true,
         Component: Home,
       },
       {
@@ -20,15 +28,51 @@ const router = createBrowserRouter([
         Component: Projects,
       },
       {
-        path: "/projects/:id",
+        path: "/projects/:slug",
         Component: SingleProject,
-      },{
-        path:'/about',
-        Component: About
-      },{
-        path: '/contact',
-        Component: Contact
-      }
+      },
+      {
+        path: "/about",
+        Component: About,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
+      },
+    ],
+  },
+  {
+    path: "/jolrong-login",
+    Component: AdminLogin,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        Component: DashboardOverview,
+      },
+      {
+        path: "/dashboard/all-projects",
+        Component: AllProjectDashboard,
+      },
+      {
+        path: "/dashboard/create-project",
+        Component: CreateProjectDashboard,
+      },
+      {
+        path: "/dashboard/all-images",
+        Component: AllImagesDashboard,
+      },
+      {
+        path: "/dashboard/upload-images",
+        Component: UploadImagesDashboard,
+      },
     ],
   },
 ]);
