@@ -29,7 +29,7 @@ const data = {
       items: [
         {
           title: "All Project",
-          url: "/dashboard/all-projects",
+          url: "/dashboard",
         },
         {
           title: "Create Project",
@@ -77,7 +77,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: userData, isLoading } = useUserInfoQuery({});
+  const { data: userData } = useUserInfoQuery({});
   const navigate = useNavigate();
   const user = userData?.data;
   console.log(user);

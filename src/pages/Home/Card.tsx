@@ -17,7 +17,7 @@ export interface CardProps {
 const Card: React.FC<CardProps> = ({index, project, progress, range, targetScale, color,
 }) => {
   const container = useRef<HTMLDivElement | null>(null);
-  const {name, client, location, size, type, status, description, image, year, slug} = project
+  const {name, client, location, type, status, description, image, year, slug} = project
   console.log(index)
 
   const { scrollYProgress } = useScroll({
@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({index, project, progress, range, targetScale
   return (
     <div
       ref={container}
-      className="h-[100vh] flex items-center justify-center sticky top-40 md:top-40"
+      className="h-[100vh] flex items-center justify-center sticky top-40 md:top-40 "
     >
       <motion.div
         style={{
@@ -51,7 +51,7 @@ const Card: React.FC<CardProps> = ({index, project, progress, range, targetScale
               <img
                 src={image}
                 alt={name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover "
               />
             </motion.div>
 

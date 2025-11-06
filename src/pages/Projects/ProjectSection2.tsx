@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import BaseSection from "@/layout/BaseSection";
 import { useAllProjectsQuery } from "@/redux/api/projects/projects.api";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,9 @@ import { Badge } from "@/components/ui/badge";
 import type { ProjectStatus, ProjectType } from "@/types";
 import ProjectSingleCard from "./ProjectSingleCard";
 import FeaturedCardSkeleton from "@/components/Modules/Projects/FeaturedCardSkeleton";
+import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
+
+const PAGE_LIMIT = 10;
 
 
 const ProjectsSection2 = () => {
@@ -21,13 +24,36 @@ const ProjectsSection2 = () => {
   const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | "ALL">("ALL");
   const [showFilters, setShowFilters] = useState(false);
 
+  const [page, setPage] = useState<number>(1);
+
   // Build query params based on filters
   const queryParams = {
     ...(selectedType !== "ALL" && { type: selectedType }),
     ...(selectedStatus !== "ALL" && { status: selectedStatus }),
+    isPublic:true,
+    page,
+    limit:PAGE_LIMIT
   };
 
+  // console.log(queryParams)
   const { data: projectData, isLoading } = useAllProjectsQuery(queryParams);
+
+    const meta = projectData?.meta;
+    const totalPages = meta?.totalPages ?? 1;
+  
+    const pageNumbers = useMemo(() => {
+      const pages: number[] = [];
+      const maxVisible = 7;
+      let start = Math.max(1, page - Math.floor(maxVisible / 2));
+      let end = start + maxVisible - 1;
+      if (end > totalPages) {
+        end = totalPages;
+        start = Math.max(1, end - maxVisible + 1);
+      }
+      for (let i = start; i <= end; i++) pages.push(i);
+      return pages;
+    }, [page, totalPages]);
+  
 
   const handleResetFilters = () => {
     setSelectedType("ALL");
@@ -191,6 +217,17 @@ const ProjectsSection2 = () => {
           )}
         </>
       )}
+
+      <div className="pt-32"> 
+        <PaginationModule
+          page={page}
+          totalPages={totalPages}
+          pageNumbers={pageNumbers}
+          setPage={setPage}
+        />
+      </div>
+
+
     </BaseSection>
   );
 };

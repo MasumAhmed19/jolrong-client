@@ -6,11 +6,15 @@ import { Loader2, ImagePlus, Info, X } from "lucide-react";
 import { toast } from "sonner";
 import { useUploadImagesMutation } from "@/redux/api/gallery/gallery.api";
 
-const UploadImagesDashboard = () => {
+//this is added
+interface UploadImagesDashboardProps {
+  onUpload?: (urls: string[]) => void;
+}
+
+const UploadImagesDashboard = (props: UploadImagesDashboardProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [uploadImages, { isLoading }] = useUploadImagesMutation();
-
 
   // Handle file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,22 +67,28 @@ const UploadImagesDashboard = () => {
   };
 
   // Handle upload
-const handleUpload = async () => {
-  if (selectedFiles.length === 0) {
-    toast.warning("Please select images to upload.");
-    return;
-  }
+  const handleUpload = async () => {
+    if (selectedFiles.length === 0) {
+      toast.warning("Please select images to upload.");
+      return;
+    }
 
-  const formData = new FormData();
-  selectedFiles.forEach((file) => formData.append("images", file));
+    const formData = new FormData();
+    selectedFiles.forEach((file) => formData.append("images", file));
 
-  try {
-    const response = await uploadImages(formData).unwrap();
-    toast.success(response.message || "Images uploaded successfully!");
-  } catch (err: any) {
-    toast.error(err?.data?.message || "Upload failed");
-  }
-};
+    try {
+      const response = await uploadImages(formData).unwrap();
+      toast.success(response.message || "Images uploaded successfully!");
+    
+      //this will added
+      if (props.onUpload) {
+        const uploadedUrls = response.data.map((img: any) => img.url);
+        props.onUpload(uploadedUrls);
+      }
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Upload failed");
+    }
+  };
 
   // Cleanup preview URLs when component unmounts
   React.useEffect(() => {
@@ -120,6 +130,7 @@ const handleUpload = async () => {
               accept="image/jpeg,image/png,image/gif,image/webp"
               onChange={handleFileChange}
               disabled={isLoading}
+              className="cursor-pointer"
             />
 
             {/* Preview Section */}
@@ -143,11 +154,11 @@ const handleUpload = async () => {
 
                       <button
                         onClick={() => removeImage(idx)}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 shadow-2xl group-hover:opacity-100 transition-opacity"
                         type="button"
                         disabled={isLoading}
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-5 h-5 cursor-pointer" />
                       </button>
 
                       <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 truncate">
@@ -163,7 +174,7 @@ const handleUpload = async () => {
             <Button
               onClick={handleUpload}
               disabled={isLoading || selectedFiles.length === 0}
-              className="mt-5 w-full"
+              className="mt-5 w-full cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -184,3 +195,6 @@ const handleUpload = async () => {
 };
 
 export default UploadImagesDashboard;
+
+
+

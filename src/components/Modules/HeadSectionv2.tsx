@@ -1,6 +1,5 @@
 const HeadSecitonv2 = ({
   title = "Explore Our Proudly Collection",
-  btnText = "About us",
   description = "Jolrong Architect will showcase its vision of contemporary architecture, interior design trends, and innovative living.",
 }) => {
   return (

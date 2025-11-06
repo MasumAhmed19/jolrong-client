@@ -7,7 +7,7 @@ interface GalleryPaginationProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const GalleryPagination = ({
+const PaginationModule = ({
   page,
   totalPages,
   pageNumbers,
@@ -19,6 +19,7 @@ const GalleryPagination = ({
       variant="ghost"
       onClick={() => setPage((p) => Math.max(1, p - 1))}
       disabled={page <= 1}
+      className="cursor-pointer"
     >
       Prev
     </Button>
@@ -67,10 +68,12 @@ const GalleryPagination = ({
       variant="ghost"
       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
       disabled={page >= totalPages}
+      className="cursor-pointer"
+
     >
       Next
     </Button>
   </div>
 );
 
-export default GalleryPagination;
+export default PaginationModule;

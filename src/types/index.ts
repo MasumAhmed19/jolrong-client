@@ -36,11 +36,12 @@ export interface IPaginationResponse<T> {
 }
 
 
-
 export type ProjectType ="EXTERIOR"| "INTERIOR" | "STRUCTURAL" | "GRAPHICS"
 
+export type ProjectStatus = "ONGOING"| "UPCOMING" | "COMPLETED"
 
-export type ProjectStatus = "DESIGN"| "ONGOING"| "VISUALIZATION" |"COMPLETED"|"ANIMATION"
+export type TypeOfWork = "DESIGN" | "VISUALIZATION" |  "ANIMATION" | "CONSULTANT"
+
 
 export interface IProject {
   _id: string;
@@ -51,14 +52,16 @@ export interface IProject {
   size: string;
   type: ProjectType;
   status: ProjectStatus;
+  typeofWork: TypeOfWork
+  year: string;
   description?: string;
   image?: string;
-  year: string;
   color?: string;
   gallery?: string[];
   budget?: string;
   slug: string;
   tags?: string[];
+  featuredVideo?: string,
   isFeatured: boolean;
   isPublic: boolean;
   createdAt: string;
@@ -71,11 +74,13 @@ export interface ICreateProjectPayload {
   client: string;
   location: string;
   size: string;
-  type: ProjectType | string;
-  status: ProjectStatus | string;
+  type: ProjectType;
+  status: ProjectStatus;
+  typeofWork: TypeOfWork 
+  year: string;
+  featuredVideo?: string,
   description?: string;
   image?: string;
-  year: string;
   color?: string;
   gallery?: string[];
   budget?: string;
@@ -89,9 +94,11 @@ export interface IUpdateProjectPayload {
   client?: string;
   location?: string;
   size?: string;
-  type?: ProjectType | string;
-  status?: ProjectStatus | string;
+  type?: ProjectType;
+  typeofWork?: TypeOfWork 
+  status?: ProjectStatus;
   description?: string;
+  featuredVideo?: string,
   image?: string;
   year?: string;
   color?: string;
@@ -107,10 +114,14 @@ export interface IProjectQueryParams {
   type?: string;
   status?: string;
   sortBy?: string;
+  typeofWork?: string;
   sortOrder?: "asc" | "desc";
   page?: number;
   limit?: number;
+  year?:string;
   isFeatured?: boolean;
+  isPublic?: boolean;
+
 }
 
 export interface IProjectsResponse {

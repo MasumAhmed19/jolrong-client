@@ -78,10 +78,10 @@ const Hero2 = () => {
       <div className="mt-[30vh] mb-[30vh] sm:mt-[50vh] sm:mb-[50vh]">
         <div className="absolute top-[7.5rem] left-[1%] sm:top-[10rem] z-10 w-full flex flex-col items-center px-4 text-center text-black gap-3 sm:gap-5 md:gap-6">
           {/* Logo */}
-          <img className="h-12 sm:h-20 md:h-24" src={MainLogo} alt="Logo" />
+          <img className="h-16 sm:h-20 md:h-24" src={MainLogo} alt="Logo" />
 
           {/* Description */}
-          <p className="max-w-[90%] sm:max-w-[70%] md:max-w-[50%] lg:max-w-[35%] text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          <p className="max-w-[90%] sm:max-w-[70%] md:max-w-[50%] lg:max-w-[35%] text-sm sm:text-sm md:text-base text-slate-700 leading-relaxed">
             Creating timeless furniture pieces that define contemporary living
             through exceptional design and craftsmanship.
           </p>

@@ -3,7 +3,6 @@ import DashboardLayout from "@/layout/DashboardLayout";
 import About from "@/pages/About/About";
 import AdminLogin from "@/pages/Auth/AdminLogin";
 import Contact from "@/pages/Contact/Contact";
-import DashboardOverview from "@/pages/Dashboard/DashboardOverview";
 import AllImagesDashboard from "@/pages/Dashboard/Gallery/All-Images/AllImagesDashboard";
 import UploadImagesDashboard from "@/pages/Dashboard/Gallery/UploadImages/UploadImagesDashboard";
 import AllProjectDashboard from "@/pages/Dashboard/Projects/allProject/AllProjectDashboard";
@@ -13,6 +12,7 @@ import Projects from "@/pages/Projects/Projects";
 import SingleProject from "@/pages/Projects/SingleProject";
 import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "./ProtectedRoute";
+import EditProjectDashboard from "@/pages/Dashboard/Projects/updateProject/EditProjectDashboard";
 
 const router = createBrowserRouter([
   {
@@ -55,15 +55,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: DashboardOverview,
-      },
-      {
-        path: "/dashboard/all-projects",
         Component: AllProjectDashboard,
       },
       {
-        path: "/dashboard/create-project",
+        path: "/dashboard/create-project/",
         Component: CreateProjectDashboard,
+      },{
+        path: "/dashboard/edit-project/:slug",
+        Component: EditProjectDashboard,
       },
       {
         path: "/dashboard/all-images",

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { baseApi } from "@/redux/baseApi";
 import type {
   IProject,
@@ -33,11 +34,15 @@ export const projectsApi = baseApi.injectEndpoints({
           status: params?.status,
           sortBy: params?.sortBy || "createdAt",
           sortOrder: params?.sortOrder || "desc",
+          year: params?.year,
+          typeofWork: params?.typeofWork,
           page: params?.page || 1,
           limit: params?.limit || 10,
           isFeatured: params?.isFeatured,
+          isPublic: params?.isPublic
         },
       }),
+      providesTags:["PROJECTS"]
 
     }),
 
@@ -50,9 +55,7 @@ export const projectsApi = baseApi.injectEndpoints({
         url: `/project/${slug}`,
         method: "GET",
       }),
-      providesTags: (result, error, slug) => [
-        { type: "PROJECTS", id: result?.data._id },
-      ],
+      providesTags: ["PROJECTS"]
     }),
 
     // Update project
@@ -61,14 +64,11 @@ export const projectsApi = baseApi.injectEndpoints({
       { id: string; data: IUpdateProjectPayload }
     >({
       query: ({ id, data }) => ({
-        url: `/projects/${id}`,
+        url: `/project/${id}`,
         method: "PATCH",
         body: data, // Changed from 'data' to 'body'
       }),
-      invalidatesTags: (result, error, { id }) => [
-        { type: "PROJECTS", id },
-        { type: "PROJECTS", id: "LIST" },
-      ],
+      invalidatesTags: ["PROJECTS"],
     }),
 
     // Delete project
@@ -77,13 +77,10 @@ export const projectsApi = baseApi.injectEndpoints({
       string
     >({
       query: (id) => ({
-        url: `/projects/${id}`,
+        url: `/project/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, id) => [
-        { type: "PROJECTS", id },
-        { type: "PROJECTS", id: "LIST" },
-      ],
+      invalidatesTags: ["PROJECTS"],
     }),
   }),
 });

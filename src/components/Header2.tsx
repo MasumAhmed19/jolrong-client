@@ -133,7 +133,7 @@
 
 
 import { useState, useRef } from "react";
-import { Link, NavLink } from "react-router";
+import {  NavLink } from "react-router";
 import { Button } from "./ui/button";
 import { MenuIcon, X } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
@@ -241,7 +241,7 @@ const Header2 = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="absolute top-full left-0 w-full bg-white/40 backdrop-blur-md md:hidden z-50 border-t border-white/20"
+          className="absolute top-full left-0 w-full min-h-[80vh] bg-white backdrop-blur-md md:hidden z-50 border-t border-white/20"
         >
           <nav className="flex flex-col space-y-4 p-4">
             {dynamicNavItems.map(({ title, path }) => (

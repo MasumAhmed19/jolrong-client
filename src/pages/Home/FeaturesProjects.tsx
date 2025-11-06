@@ -32,7 +32,7 @@ const FeaturedProjects = () => {
   }
 
   return (
-    <div ref={container} className="mx-auto mt-[12vh] md:mt-[8vh]">
+    <div ref={container} className="mx-auto mt-[12vh] md:mt-[8vh] ">
       {projects.map((project, idx) => {
         const typedProject = project as IProject;
         const index = idx as number;

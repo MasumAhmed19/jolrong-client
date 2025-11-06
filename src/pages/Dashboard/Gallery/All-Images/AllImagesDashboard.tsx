@@ -23,9 +23,11 @@ import {
 import { Link } from "react-router";
 import { UploadIcon } from "lucide-react";
 import GalleryGrid from "@/components/Modules/Gallery/GalleryGrid";
-import GalleryPagination from "@/components/Modules/Gallery/GalleryPaginationProps";
+import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
 
-const PAGE_LIMIT = 8;
+
+
+const PAGE_LIMIT = 15;
 
 const AllImagesDashboard = () => {
   const [page, setPage] = useState<number>(1);
@@ -93,7 +95,7 @@ const AllImagesDashboard = () => {
         pageLimit={PAGE_LIMIT}
       />
 
-      <GalleryPagination
+      <PaginationModule
         page={page}
         totalPages={totalPages}
         pageNumbers={pageNumbers}
@@ -150,3 +152,4 @@ const AllImagesDashboard = () => {
 };
 
 export default AllImagesDashboard;
+

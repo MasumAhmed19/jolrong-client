@@ -10,7 +10,6 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Link, useParams } from "react-router";
 import { SliderGallery } from "./SliderGallery";
 import { useProjectBySlugQuery } from "@/redux/api/projects/projects.api";
-import type { IProject } from "@/types";
 import SingleProjectSkeleton from "@/components/Modules/Projects/SingleProjectSkeleton";
 
 const SingleProject = () => {
