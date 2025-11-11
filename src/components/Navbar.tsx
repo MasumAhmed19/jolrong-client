@@ -15,26 +15,24 @@ const navMenuItems = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const { scrollY } = useScroll();
 
-const { scrollY } = useScroll();
-  
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 10);
   });
 
-  const isMobile = windowWidth < 768; 
-
+  const isMobile = windowWidth < 768;
 
   return (
-     <motion.header
+    <motion.header
       initial={{ width: "100%", padding: "0rem 0rem" }}
       animate={
         scrolled && !isMobile
@@ -58,17 +56,17 @@ const { scrollY } = useScroll();
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
           {navMenuItems.map(({ title, path }) => (
-            <NavLink
-              key={title}
-              to={path}
-              className={({ isActive }) =>
-                `text-sm lg:text-base transition-colors ${
-                  isActive ? "text-primary" : "text-gray-700 hover:text-black"
-                }`
-              }
-            >
-              {title}
-            </NavLink>
+              <NavLink
+                key={title}
+                to={path}
+                className={({ isActive }) =>
+                  `text-sm lg:text-base transition-colors ${
+                    isActive ? "text-primary" : "text-gray-700 hover:text-black"
+                  }`
+                }
+              >
+                {title}
+              </NavLink>
           ))}
         </nav>
 

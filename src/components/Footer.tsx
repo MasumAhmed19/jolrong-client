@@ -1,58 +1,86 @@
+import ContainerWidth from "@/layout/ContainerWidth";
+import { FacebookIcon, InstagramIcon } from "lucide-react";
+import Logo from "./Shared/Logo";
+import { Link } from "react-router";
+
+interface MenuItem {
+  label: string;
+  path: string;
+}
+
+interface SocialLink {
+  icon: React.ReactNode;
+  href: string;
+  label: string;
+}
+
 const Footer = () => {
-  const footerSections = [
+  const menuItems: MenuItem[] = [
+    { label: "Home", path: "/" },
+    { label: "Projects", path: "/projects" },
+    { label: "About", path: "/about" },
+    { label: "Contact", path: "/contact" },
+  ];
+
+  const socialLinks: SocialLink[] = [
     {
-      title: "About",
-      links: ["Our Story", "Craftsmanship", "Sustainability", "Careers"],
+      icon: <FacebookIcon size={17} />,
+      href: "https://facebook.com/jolrongarchitects",
+      label: "Facebook",
     },
     {
-      title: "Our Projects",
-      links: ["Exterior", "Interior", "Structural", "Graphics"],
-    },
-    {
-      title: "Social Media",
-      links: ["Instagram", "Facebook", "LinkedIn"],
+      icon: <InstagramIcon size={17} />,
+      href: "https://instagram.com/jolrongarchitects",
+      label: "Instagram",
     },
   ];
 
   return (
-    <footer className="bg-black text-white rounded-2xl m-5">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* Brand Section */}
-          <div className="md:col-span-1">
-            <h3 className="text-2xl font-bold mb-6">Jolrong Architect</h3>
-            <p className="text-gray-400 leading-relaxed mb-6">
-              Creating timeless furniture pieces that define contemporary living
-              through exceptional design and craftsmanship.
-            </p>
-          </div>
+    <footer className="pb-5">
+      <ContainerWidth className="bg-black/4 rounded-3xl">
+        <div className="py-10 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          {/* Brand */}
+          <Logo />
 
-          {/* Footer Links */}
-          {footerSections.map((section, index) => (
-            <div key={index}>
-              <h4 className="font-semibold mb-4 text-lg text-white">{section.title}</h4>
-              <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-white transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Navigation Menu */}
+          <nav>
+            <ul className="flex flex-wrap items-center justify-center gap-6">
+              {menuItems.map((item) => (
+                <li key={item.path}>
+                  <Link
+                    to={item.path}
+                    className="text-sm font-medium hover:text-primary transition-colors duration-300"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full text-white bg-primary hover:bg-primary/80 transition-colors duration-300"
+                aria-label={link.label}
+              >
+                {link.icon}
+              </a>
+            ))}
+          </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-          <p className="text-gray-400">
-            © 2025 Jolrong Architect. All rights reserved.
+        <div className="border-t border-gray-200 mt-8 pt-6 text-center">
+          <p className="text-sm text-gray-500">
+            © 2025 Jolrong Architects. All rights reserved.
           </p>
         </div>
-      </div>
+      </ContainerWidth>
     </footer>
   );
 };

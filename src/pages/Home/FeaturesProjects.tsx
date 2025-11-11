@@ -4,6 +4,7 @@ import Card from "./Card";
 import { useScroll } from "framer-motion";
 import { useAllProjectsQuery } from "@/redux/api/projects/projects.api";
 import type { IProject } from "@/types";
+import { CircleLoader } from "@/components/Animated/CircleLoader/CirclerLoader";
 
 const bgColor = ["#FFF8F3", "#F5FFF8", "#F7F8FF", "#F8FFFF", "#FFF9FB"];
 
@@ -14,7 +15,7 @@ const FeaturedProjects = () => {
   });
 
   const projects = projectsData?.data ?? featuredData.projects;
-  console.log(projects)
+  // console.log(projects)
 
   const container = useRef<HTMLDivElement | null>(null);
 
@@ -26,7 +27,7 @@ const FeaturedProjects = () => {
   if (isLoading) {
     return (
       <div ref={container} className="mx-auto mt-[12vh] md:mt-[8vh]">
-        Loading...
+        <CircleLoader />
       </div>
     );
   }
