@@ -232,3 +232,51 @@ export const CardVal={
   "Design":"",
   "Completed":""
 }
+
+
+export const heroSlides = [
+  {
+    id: 1,
+    title: "Design",
+    description:
+      "We blend creativity and function to craft modern spaces that inspire and elevate everyday living.",
+    buttonText: "View More",
+    bgImage:
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600",
+    cardImage:
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800",
+  },
+  {
+    id: 2,
+    title: "Visualization",
+    description:
+      "See your ideas come alive with immersive 3D visuals that reveal every detail before creation.",
+    buttonText: "Explore Design",
+    bgImage:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1600",
+    cardImage:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800",
+  },
+  {
+    id: 3,
+    title: "Animation",
+    description:
+      "Bring concepts to motion with stunning animations that tell your story vividly and dynamically.",
+    buttonText: "Discover More",
+    bgImage:
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600",
+    cardImage:
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800",
+  },
+  {
+    id: 4,
+    title: "Consultancy",
+    description:
+      "From concept to completion, our expert guidance helps you achieve design perfection with ease.",
+    buttonText: "See Projects",
+    bgImage:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600",
+    cardImage:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
+  },
+];
