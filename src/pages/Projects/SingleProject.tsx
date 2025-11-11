@@ -8,21 +8,20 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Link, useParams } from "react-router";
-import { SliderGallery } from "./SliderGallery";
 import { useProjectBySlugQuery } from "@/redux/api/projects/projects.api";
 import SingleProjectSkeleton from "@/components/Modules/Projects/SingleProjectSkeleton";
+import { MediaModal } from "@/components/Animated/MediaModal/MediaModal";
 
 const SingleProject = () => {
-
   const { slug } = useParams<{ slug: string }>();
 
-  const {data:singleProject, isLoading} =  useProjectBySlugQuery(slug as string)
-  const project = singleProject?.data 
+  const { data: singleProject, isLoading } = useProjectBySlugQuery(
+    slug as string
+  );
+  const project = singleProject?.data;
 
-  if(isLoading){
-    return(
-      <SingleProjectSkeleton />
-    )
+  if (isLoading) {
+    return <SingleProjectSkeleton />;
   }
 
   if (!project) {
@@ -91,11 +90,13 @@ const SingleProject = () => {
 
       {/* About Project */}
       <div className="mx-auto w-full py-12 px-4">
-        <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">Project Details</h2>
+        <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
+          Project Details
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border  p-5 rounded-md">
           {/* Left Column - Table */}
           <div className="">
-            <Table >
+            <Table>
               <TableBody className="text-[#3f3f3f]">
                 <TableRow className="border-none">
                   <TableCell className="align-top break-words w-40">
@@ -164,22 +165,20 @@ const SingleProject = () => {
       {/* Gallery */}
       {gallery && gallery.length > 0 && (
         <div className="mx-auto w-full py-12 px-4">
-        <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">Photo Gallery</h2>
-          <div className="columns-1 sm:columns-2 md:columns-3 gap-8 rounded-md overflow-hidden">
+          <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
+            Photo Gallery
+          </h2>
+          <div className="columns-1 sm:columns-2 md:columns-4 gap-5 rounded-md overflow-hidden">
             {gallery.map((img, i) => (
-              <div key={i} className="mb-8 break-inside-avoid">
-                <img
-                  src={img}
-                  alt={`${name} ${i + 1}`}
-                  className="w-full rounded-lg shadow-md grayscale-100 hover:grayscale-0 duration-300 transition cursor-pointer"
-                />
+              <div key={i} className="mb-5 break-inside-avoid cursor-pointer">
+                <MediaModal imgSrc={img} />
               </div>
             ))}
           </div>
         </div>
       )}
 
-      <SliderGallery gallery={gallery ?? []} showNumbers={false} />
+      {/* <SliderGallery gallery={gallery ?? []} showNumbers={false} /> */}
     </div>
   );
 };

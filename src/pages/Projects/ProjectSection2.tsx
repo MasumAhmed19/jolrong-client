@@ -11,56 +11,62 @@ import {
 } from "@/components/ui/select";
 import { Filter, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import type { ProjectStatus, ProjectType } from "@/types";
+import type { ProjectStatus, ProjectType, TypeOfWork } from "@/types";
 import ProjectSingleCard from "./ProjectSingleCard";
 import FeaturedCardSkeleton from "@/components/Modules/Projects/FeaturedCardSkeleton";
 import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
 
 const PAGE_LIMIT = 10;
 
-
 const ProjectsSection2 = () => {
   const [selectedType, setSelectedType] = useState<ProjectType | "ALL">("ALL");
   const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | "ALL">("ALL");
+  const [selectedWorkType, setSelectedWorkType] = useState<TypeOfWork | "ALL">("ALL");
+  const [selectedYear, setSelectedYear] = useState<string>("ALL");
   const [showFilters, setShowFilters] = useState(false);
-
   const [page, setPage] = useState<number>(1);
 
   // Build query params based on filters
   const queryParams = {
     ...(selectedType !== "ALL" && { type: selectedType }),
     ...(selectedStatus !== "ALL" && { status: selectedStatus }),
-    isPublic:true,
+    ...(selectedWorkType !== "ALL" && { typeofWork: selectedWorkType }),
+    ...(selectedYear !== "ALL" && { year: selectedYear }),
+    isPublic: true,
     page,
-    limit:PAGE_LIMIT
+    limit: PAGE_LIMIT,
   };
 
-  // console.log(queryParams)
   const { data: projectData, isLoading } = useAllProjectsQuery(queryParams);
 
-    const meta = projectData?.meta;
-    const totalPages = meta?.totalPages ?? 1;
-  
-    const pageNumbers = useMemo(() => {
-      const pages: number[] = [];
-      const maxVisible = 7;
-      let start = Math.max(1, page - Math.floor(maxVisible / 2));
-      let end = start + maxVisible - 1;
-      if (end > totalPages) {
-        end = totalPages;
-        start = Math.max(1, end - maxVisible + 1);
-      }
-      for (let i = start; i <= end; i++) pages.push(i);
-      return pages;
-    }, [page, totalPages]);
-  
+  const meta = projectData?.meta;
+  const totalPages = meta?.totalPages ?? 1;
+
+  const pageNumbers = useMemo(() => {
+    const pages: number[] = [];
+    const maxVisible = 7;
+    let start = Math.max(1, page - Math.floor(maxVisible / 2));
+    let end = start + maxVisible - 1;
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(1, end - maxVisible + 1);
+    }
+    for (let i = start; i <= end; i++) pages.push(i);
+    return pages;
+  }, [page, totalPages]);
 
   const handleResetFilters = () => {
     setSelectedType("ALL");
     setSelectedStatus("ALL");
+    setSelectedWorkType("ALL");
+    setSelectedYear("ALL");
   };
 
-  const hasActiveFilters = selectedType !== "ALL" || selectedStatus !== "ALL";
+  const hasActiveFilters =
+    selectedType !== "ALL" ||
+    selectedStatus !== "ALL" ||
+    selectedWorkType !== "ALL" ||
+    selectedYear !== "ALL";
 
   const projectTypes: Array<ProjectType | "ALL"> = [
     "ALL",
@@ -72,11 +78,22 @@ const ProjectsSection2 = () => {
 
   const projectStatuses: Array<ProjectStatus | "ALL"> = [
     "ALL",
-    "DESIGN",
     "ONGOING",
-    "VISUALIZATION",
     "COMPLETED",
+    "UPCOMING",
+  ];
+
+  const typeofWork: Array<TypeOfWork | "ALL"> = [
+    "ALL",
+    "DESIGN",
+    "VISUALIZATION",
     "ANIMATION",
+    "CONSULTANCY",
+  ];
+
+  const years = [
+    "ALL",
+    ...Array.from({ length: 9 }, (_, i) => (2022 + i).toString()),
   ];
 
   return (
@@ -94,8 +111,14 @@ const ProjectsSection2 = () => {
             <Filter className="w-4 h-4 mr-2" />
             Filters
             {hasActiveFilters && (
-              <Badge variant="destructive" className="ml-2 px-1.5 py-0.5 text-xs">
-                {(selectedType !== "ALL" ? 1 : 0) + (selectedStatus !== "ALL" ? 1 : 0)}
+              <Badge
+                variant="destructive"
+                className="ml-2 px-1.5 py-0.5 text-xs"
+              >
+                {(selectedType !== "ALL" ? 1 : 0) +
+                  (selectedStatus !== "ALL" ? 1 : 0) +
+                  (selectedWorkType !== "ALL" ? 1 : 0) +
+                  (selectedYear !== "ALL" ? 1 : 0)}
               </Badge>
             )}
           </Button>
@@ -105,13 +128,15 @@ const ProjectsSection2 = () => {
         <div
           className={`${
             showFilters ? "flex" : "hidden"
-          } md:flex flex-col md:flex-row gap-4 items-start md:items-center`}
+          } md:flex flex-col md:flex-row gap-4 items-start md:items-center flex-wrap`}
         >
           {/* Type Filter */}
           <div className="w-full md:w-auto">
             <Select
               value={selectedType}
-              onValueChange={(value) => setSelectedType(value as ProjectType | "ALL")}
+              onValueChange={(value) =>
+                setSelectedType(value as ProjectType | "ALL")
+              }
             >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Project Type" />
@@ -119,7 +144,34 @@ const ProjectsSection2 = () => {
               <SelectContent>
                 {projectTypes.map((type) => (
                   <SelectItem key={type} value={type}>
-                    {type === "ALL" ? "All Types" : type}
+                    {type === "ALL"
+                      ? "All Types"
+                      : type.charAt(0).toUpperCase() +
+                        type.slice(1).toLowerCase()}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Type of Work */}
+          <div className="w-full md:w-auto">
+            <Select
+              value={selectedWorkType}
+              onValueChange={(value) =>
+                setSelectedWorkType(value as TypeOfWork | "ALL")
+              }
+            >
+              <SelectTrigger className="w-full md:w-[180px]">
+                <SelectValue placeholder="Type of work" />
+              </SelectTrigger>
+              <SelectContent>
+                {typeofWork.map((work) => (
+                  <SelectItem key={work} value={work}>
+                    {work === "ALL"
+                      ? "All Work Types"
+                      : work.charAt(0).toUpperCase() +
+                        work.slice(1).toLowerCase()}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -130,7 +182,9 @@ const ProjectsSection2 = () => {
           <div className="w-full md:w-auto">
             <Select
               value={selectedStatus}
-              onValueChange={(value) => setSelectedStatus(value as ProjectStatus | "ALL")}
+              onValueChange={(value) =>
+                setSelectedStatus(value as ProjectStatus | "ALL")
+              }
             >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Project Status" />
@@ -138,7 +192,29 @@ const ProjectsSection2 = () => {
               <SelectContent>
                 {projectStatuses.map((status) => (
                   <SelectItem key={status} value={status}>
-                    {status === "ALL" ? "All Status" : status}
+                    {status === "ALL"
+                      ? "All Status"
+                      : status.charAt(0).toUpperCase() +
+                        status.slice(1).toLowerCase()}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Year Filter */}
+          <div className="w-full md:w-auto">
+            <Select
+              value={selectedYear}
+              onValueChange={(value) => setSelectedYear(value)}
+            >
+              <SelectTrigger className="w-full md:w-[180px]">
+                <SelectValue placeholder="Year" />
+              </SelectTrigger>
+              <SelectContent>
+                {years.map((year) => (
+                  <SelectItem key={year} value={year}>
+                    {year === "ALL" ? "All Years" : year}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -162,23 +238,27 @@ const ProjectsSection2 = () => {
         {/* Active Filters Display */}
         {hasActiveFilters && (
           <div className="flex flex-wrap gap-2 items-center">
-            <span className="text-sm text-muted-foreground">Active filters:</span>
+            <span className="text-sm text-muted-foreground">
+              Active filters:
+            </span>
             {selectedType !== "ALL" && (
               <Badge variant="secondary" className="gap-1">
                 Type: {selectedType}
-                {/* <X
-                  className="w-3 h-3 cursor-pointer hover:text-destructive"
-                  onClick={() => setSelectedType("ALL")}
-                /> */}
+              </Badge>
+            )}
+            {selectedWorkType !== "ALL" && (
+              <Badge variant="secondary" className="gap-1">
+                Work: {selectedWorkType}
               </Badge>
             )}
             {selectedStatus !== "ALL" && (
               <Badge variant="secondary" className="gap-1">
                 Status: {selectedStatus}
-                {/* <X
-                  className="w-3 h-3 cursor-pointer hover:text-destructive"
-                  onClick={() => setSelectedStatus("ALL")}
-                /> */}
+              </Badge>
+            )}
+            {selectedYear !== "ALL" && (
+              <Badge variant="secondary" className="gap-1">
+                Year: {selectedYear}
               </Badge>
             )}
           </div>
@@ -186,17 +266,19 @@ const ProjectsSection2 = () => {
       </div>
 
       {/* Loading State */}
-      {isLoading && (
-        <FeaturedCardSkeleton />
-      )}
+      {isLoading && <FeaturedCardSkeleton />}
 
       {/* Projects Grid */}
       {!isLoading && projectData?.data && (
         <>
           {projectData.data.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 md:gap-30 gap-5 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 md:gap-30 gap-5">
               {projectData.data.map((project, idx) => (
-                <ProjectSingleCard key={project._id} project={project} index={idx} />
+                <ProjectSingleCard
+                  key={project._id}
+                  project={project}
+                  index={idx}
+                />
               ))}
             </div>
           ) : (
@@ -218,7 +300,7 @@ const ProjectsSection2 = () => {
         </>
       )}
 
-      <div className="pt-32"> 
+      <div className="pt-32">
         <PaginationModule
           page={page}
           totalPages={totalPages}
@@ -226,8 +308,6 @@ const ProjectsSection2 = () => {
           setPage={setPage}
         />
       </div>
-
-
     </BaseSection>
   );
 };

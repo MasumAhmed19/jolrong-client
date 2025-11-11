@@ -4,7 +4,7 @@ import CircularText from "@/components/CircularText/CircularText";
 
 const Hero = () => {
   return (
-    <section className="relative h-[calc(100vh-100px)] flex flex-col justify-center rounded-2xl overflow-hidden">
+    <section className="relative h-[calc(100vh-200px)] flex flex-col justify-center rounded-2xl overflow-hidden my-[7vh] md:my-[10vh]">
       {/* Background Image */}
       <div className="absolute inset-0 overflow-hidden">
         <img
@@ -72,3 +72,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

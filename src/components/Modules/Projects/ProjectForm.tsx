@@ -63,7 +63,7 @@ const typeofWork: TypeOfWork[] = [
   "DESIGN",
   "VISUALIZATION",
   "ANIMATION",
-  "CONSULTANT",
+  "CONSULTANCY",
 ];
 
 interface ProjectFormProps {
@@ -99,7 +99,7 @@ const ProjectForm = ({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Project Name</FormLabel>
+              <FormLabel>Project Name *</FormLabel>
               <FormControl>
                 <Input placeholder="Project Name" {...field} />
               </FormControl>
@@ -115,9 +115,9 @@ const ProjectForm = ({
             name="client"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Client</FormLabel>
+                <FormLabel>Client Name*</FormLabel>
                 <FormControl>
-                  <Input placeholder="Client Name" {...field} />
+                  <Input placeholder="ex. Abdul Hannan" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -130,9 +130,9 @@ const ProjectForm = ({
             name="location"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Location</FormLabel>
+                <FormLabel>Location *</FormLabel>
                 <FormControl>
-                  <Input placeholder="Project Location" {...field} />
+                  <Input placeholder="ex. Dhanmondi, Dhaka" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -145,9 +145,9 @@ const ProjectForm = ({
             name="size"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Size</FormLabel>
+                <FormLabel>Size *</FormLabel>
                 <FormControl>
-                  <Input placeholder="Project Size" {...field} />
+                  <Input placeholder="ex. 1200 square meter" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -178,7 +178,7 @@ const ProjectForm = ({
             name="type"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Project Type</FormLabel>
+                <FormLabel>Project Type *</FormLabel>
                 <FormControl className="w-full">
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
@@ -209,7 +209,7 @@ const ProjectForm = ({
             name="typeofWork"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Type of work</FormLabel>
+                <FormLabel>Type of work *</FormLabel>
                 <FormControl className="w-full">
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
@@ -240,7 +240,7 @@ const ProjectForm = ({
             name="status"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Project Status</FormLabel>
+                <FormLabel>Project Status *</FormLabel>
                 <FormControl className="w-full">
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
@@ -271,7 +271,7 @@ const ProjectForm = ({
             name="year"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Year</FormLabel>
+                <FormLabel>Year *</FormLabel>
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
@@ -322,7 +322,7 @@ const ProjectForm = ({
             name="image"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Featured Image</FormLabel>
+                <FormLabel>Featured Image *</FormLabel>
                 <FormControl>
                   <ImageSelectorModal
                     triggerLabel={field.value ? "Change Image" : "Select Image"}
@@ -357,7 +357,7 @@ const ProjectForm = ({
             name="gallery"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Gallery Images</FormLabel>
+                <FormLabel>Gallery Images *</FormLabel>
                 <FormControl>
                   <ImageSelectorModal
                     triggerLabel="Add Gallery Images"
@@ -400,6 +400,21 @@ const ProjectForm = ({
             )}
           />
         </div>
+
+            {/* Featured Video */}
+          <FormField
+          control={form.control}
+          name="featuredVideo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Featured Video</FormLabel>
+              <FormControl>
+                <Input placeholder="Youtube video link" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {/* Tags */}
         <FormField

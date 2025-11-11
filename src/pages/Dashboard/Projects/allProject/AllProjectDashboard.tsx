@@ -98,7 +98,7 @@ const AllProjectDashboard = () => {
     "DESIGN",
     "VISUALIZATION",
     "ANIMATION",
-    "CONSULTANT",
+    "CONSULTANCY",
   ];
 
   const years = ["ALL", ...Array.from({ length: 9 }, (_, i) => (2022 + i).toString())];

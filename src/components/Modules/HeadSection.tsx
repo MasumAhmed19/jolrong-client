@@ -7,7 +7,7 @@ const HeadSeciton = ({title="Explore Our Proudly Collection", btnText="Learn Mor
         <div className='flex flex-col md:flex-row items-start gap-5 md:items-end justify-between'>
           
           <div className='md:w-2/3 space-y-3'>
-            <h2 className='text-2xl md:text-3xl lg:text-4xl font-semibol text-left text-primary whitespace-nowrap'>{title}</h2>
+            <h2 className='text-2xl md:text-3xl lg:text-4xl font-semibol text-left text-primary md:whitespace-nowrap'>{title}</h2>
             <p className='md:text-lg leading-8 text-[#3f3f3f]/95'>{description}</p>
           </div>
 

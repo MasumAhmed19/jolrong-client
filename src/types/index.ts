@@ -40,7 +40,7 @@ export type ProjectType ="EXTERIOR"| "INTERIOR" | "STRUCTURAL" | "GRAPHICS"
 
 export type ProjectStatus = "ONGOING"| "UPCOMING" | "COMPLETED"
 
-export type TypeOfWork = "DESIGN" | "VISUALIZATION" |  "ANIMATION" | "CONSULTANT"
+export type TypeOfWork = "DESIGN" | "VISUALIZATION" |  "ANIMATION" | "CONSULTANCY"
 
 
 export interface IProject {
