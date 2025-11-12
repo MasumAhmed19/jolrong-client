@@ -2,7 +2,6 @@
 import { motion } from "motion/react";
 
 
-const bgColor = ["#FFF8F3", "#F5FFF8", "#F7F8FF", "#F8FFFF", "#FFF9FB"];
 
 // Animated Loader Component
 export const CircleLoader = () => {

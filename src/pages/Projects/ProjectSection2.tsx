@@ -15,13 +15,18 @@ import type { ProjectStatus, ProjectType, TypeOfWork } from "@/types";
 import ProjectSingleCard from "./ProjectSingleCard";
 import FeaturedCardSkeleton from "@/components/Modules/Projects/FeaturedCardSkeleton";
 import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
+import Copy from "@/components/copy/Copy";
 
 const PAGE_LIMIT = 10;
 
 const ProjectsSection2 = () => {
   const [selectedType, setSelectedType] = useState<ProjectType | "ALL">("ALL");
-  const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | "ALL">("ALL");
-  const [selectedWorkType, setSelectedWorkType] = useState<TypeOfWork | "ALL">("ALL");
+  const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | "ALL">(
+    "ALL"
+  );
+  const [selectedWorkType, setSelectedWorkType] = useState<TypeOfWork | "ALL">(
+    "ALL"
+  );
   const [selectedYear, setSelectedYear] = useState<string>("ALL");
   const [showFilters, setShowFilters] = useState(false);
   const [page, setPage] = useState<number>(1);
@@ -284,12 +289,16 @@ const ProjectsSection2 = () => {
           ) : (
             <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
               <Filter className="w-12 h-12 text-muted-foreground mb-4" />
-              <h3 className="text-xl font-semibold text-primary mb-2">
-                No projects found
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Try adjusting your filters to see more results
-              </p>
+              <Copy>
+                <h3 className="text-xl font-semibold text-primary mb-2">
+                  No projects found
+                </h3>
+              </Copy>
+              <Copy>
+                <p className="text-muted-foreground mb-4">
+                  Try adjusting your filters to see more results
+                </p>
+              </Copy>
               {hasActiveFilters && (
                 <Button variant="outline" onClick={handleResetFilters}>
                   Clear Filters

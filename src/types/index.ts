@@ -1,3 +1,5 @@
+import type { Variants } from "framer-motion";
+
 export type IAdminRegister = {
     name: string;
     email: string;
@@ -135,3 +137,24 @@ export interface IProjectsResponse {
     totalPages: number;
   };
 }
+
+
+
+export const imageVariants : Variants = {
+  hidden: { y: 70, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 1, ease: "easeOut" },
+  },
+}
+
+export const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, 
+    },
+  },
+};

@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { X } from 'lucide-react';
+import { useState } from "react";
+import { X } from "lucide-react";
+import { motion } from "framer-motion";
+import { imageVariants } from "@/types";
 
 interface MediaModalProps {
   imgSrc?: string;
@@ -7,28 +9,37 @@ interface MediaModalProps {
   className?: string;
 }
 
-export function MediaModal({ imgSrc, videoSrc, className = '' }: MediaModalProps) {
+export function MediaModal({
+  imgSrc,
+  videoSrc,
+  className = "",
+}: MediaModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
     setIsOpen(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setIsOpen(false);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
   };
 
   return (
     <>
       {/* Thumbnail */}
-      <div
+      <motion.div
         onClick={openModal}
-        className={`relative overflow-hidden rounded-lg bg-gray-200 dark:bg-gray-800 cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98] ${className}`}
+        className={`relative overflow-hidden rounded-lg cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98] ${className}`}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        
       >
         {imgSrc && (
-          <img
+          <motion.img
+            variants={imageVariants}
             src={imgSrc}
             alt="Preview"
             className="w-full h-full object-cover"
@@ -37,19 +48,14 @@ export function MediaModal({ imgSrc, videoSrc, className = '' }: MediaModalProps
         )}
 
         {videoSrc && (
-          <video
-            autoPlay
-            muted
-            loop
-            className="w-full h-full object-cover"
-          >
+          <video autoPlay muted loop className="w-full h-full object-cover">
             <source src={videoSrc} type="video/mp4" />
           </video>
         )}
 
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors" />
-      </div>
+      </motion.div>
 
       {/* Lightbox Modal */}
       {isOpen && (
@@ -101,4 +107,3 @@ export function MediaModal({ imgSrc, videoSrc, className = '' }: MediaModalProps
     </>
   );
 }
-

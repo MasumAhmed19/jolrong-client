@@ -36,19 +36,19 @@ const SingleProjectSkeleton: React.FC = () => {
           </div>
 
           {/* Right Column - Description */}
-          <div>
+          {/* <div>
             <div className="h-4 w-28 bg-gray-200 rounded-md mb-4 animate-pulse" />
             <div className="space-y-3">
               {Array.from({ length: 5 }).map((_, i) => (
                 <div key={i} className="h-3 w-full bg-gray-200 rounded-md animate-pulse" />
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Gallery Skeleton */}
-      <div className="mx-auto w-full py-12 px-4">
+      {/* <div className="mx-auto w-full py-12 px-4">
         <div className="h-8 w-60 bg-gray-200 rounded-md mb-8 animate-pulse" />
         <div className="columns-1 sm:columns-2 md:columns-3 gap-8">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -57,7 +57,7 @@ const SingleProjectSkeleton: React.FC = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -6,11 +6,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Link, useParams } from "react-router";
 import { useProjectBySlugQuery } from "@/redux/api/projects/projects.api";
 import SingleProjectSkeleton from "@/components/Modules/Projects/SingleProjectSkeleton";
 import { MediaModal } from "@/components/Animated/MediaModal/MediaModal";
+import Copy from "@/components/copy/Copy";
+import { motion } from "framer-motion";
+import { containerVariants, imageVariants } from "@/types";
+import RelatedProjects from "./RelatedProjects";
+import InfoRow from "@/components/Modules/Projects/InfoRow";
 
 const SingleProject = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -43,6 +47,7 @@ const SingleProject = () => {
     image,
     year,
     gallery,
+    typeofWork,
   } = project;
 
   return (
@@ -51,14 +56,16 @@ const SingleProject = () => {
       <div className="relative w-full h-[70vh] rounded-xl overflow-hidden">
         <img src={image} alt={name} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-5">
-          <h1 className="text-white text-3xl md:text-5xl shadow-2xl font-bold tracking-wide">
-            {name}
-          </h1>
+          <Copy>
+            <h1 className="text-white text-3xl md:text-5xl shadow-2xl font-bold tracking-wide">
+              {name}
+            </h1>
+          </Copy>
         </div>
       </div>
 
       {/* Breadcrumb */}
-      <div className="mx-auto w-full py-4 px-4 pt-10">
+      <div className="mx-auto w-full py-4 pt-10">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -89,96 +96,85 @@ const SingleProject = () => {
       </div>
 
       {/* About Project */}
-      <div className="mx-auto w-full py-12 px-4">
-        <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
-          Project Details
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border  p-5 rounded-md">
-          {/* Left Column - Table */}
-          <div className="">
-            <Table>
-              <TableBody className="text-[#3f3f3f]">
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Project Name
-                  </TableCell>
-                  <TableCell className="break-words capitalize">
-                    {name}
-                  </TableCell>
-                </TableRow>
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Project Type
-                  </TableCell>
-                  <TableCell className="break-words capitalize">
-                    {type}
-                  </TableCell>
-                </TableRow>
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Location
-                  </TableCell>
-                  <TableCell className="break-words">{location}</TableCell>
-                </TableRow>
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Size
-                  </TableCell>
-                  <TableCell className="break-words">{size}</TableCell>
-                </TableRow>
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Status
-                  </TableCell>
-                  <TableCell className="break-words">{status}</TableCell>
-                </TableRow>
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Project Credit
-                  </TableCell>
-                  <TableCell className="break-words">{client}</TableCell>
-                </TableRow>
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Role
-                  </TableCell>
-                  <TableCell className="break-words">Project Manager</TableCell>
-                </TableRow>
-                <TableRow className="border-none">
-                  <TableCell className="align-top break-words w-40">
-                    Year
-                  </TableCell>
-                  <TableCell className="break-words">{year}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+      <div className="mx-auto w-full py-12">
+        <Copy>
+          <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
+            Project Details
+          </h2>
+        </Copy>
+        <div className="grid grid-cols-1 gap-10 ">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-8 lg:gap-16 items-start">
+            {/* Left Section - Project Information */}
+            <div>
+              <div className="space-y-1">
+                <InfoRow label="Name:" value={name} />
+                <InfoRow label="Client: " value={client} />
+                <InfoRow label="Project Type:" value={type} />
+                <InfoRow label="Type of work:" value={typeofWork} />
+                <InfoRow label="Location:" value={location} />
+                <InfoRow label="Size:" value={size} />
+                <InfoRow label="Status:" value={status} />
+                <InfoRow label="Year" value={year} />
+              </div>
+            </div>
+
+            {/* Right Section - Building Image */}
+            <div
+              className="w-full h-full bg-red-400 bg-center bg-no-repeat rounded-sm"
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundSize: "cover",
+              }}
+            ></div>
           </div>
 
           {/* Right Column - Description */}
-          <div className="text-[#3f3f3f]">
-            <h4 className="uppercase text-sm mb-4">Description</h4>
-            <p className="leading-relaxed">{description}</p>
-          </div>
+
+          {description && (
+            <div className="text-[#3f3f3f] py-[40px]">
+              <Copy>
+                <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
+                  Project Description
+                </h2>
+              </Copy>
+              <Copy>
+              <p className="text-lg leading-relaxed">{description}</p>
+              </Copy>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Gallery */}
       {gallery && gallery.length > 0 && (
-        <div className="mx-auto w-full py-12 px-4">
-          <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
-            Photo Gallery
-          </h2>
-          <div className="columns-1 sm:columns-2 md:columns-4 gap-5 rounded-md overflow-hidden">
+        <div className="mx-auto w-full py-12">
+          <Copy>
+            <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
+              Project Gallery
+            </h2>
+          </Copy>
+          <motion.div
+            className="columns-1 sm:columns-2 md:columns-4 gap-5 rounded-md overflow-hidden"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {gallery.map((img, i) => (
-              <div key={i} className="mb-5 break-inside-avoid cursor-pointer">
+              <motion.div
+                key={i}
+                variants={imageVariants}
+                className="mb-5 break-inside-avoid"
+              >
                 <MediaModal imgSrc={img} />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       )}
 
       {/* <SliderGallery gallery={gallery ?? []} showNumbers={false} /> */}
+      <RelatedProjects />
     </div>
   );
 };
