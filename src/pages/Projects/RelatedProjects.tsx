@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import {
   Carousel,
