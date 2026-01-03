@@ -3,7 +3,8 @@ import Footer from "./components/Footer";
 import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
 import ScrollToTop from "./lib/ScrollToTop";
-import Header2 from "./components/Header2";
+// import Header2 from "./components/Header2";
+import Header3 from "./components/Header3";
 import ContainerWidth from "./layout/ContainerWidth";
 
 
@@ -35,8 +36,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <Header2 />
-      {/* <Header3 /> */}
+      <Header3 />
 
       <ContainerWidth>
         <Outlet />

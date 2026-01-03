@@ -1,11 +1,12 @@
 
 import HeroSlider from "@/components/Modules/Slider/HeroSlider";
 import ExploreProjects from "./ExploreProjects";
+import HeroSliderv2 from "@/components/Modules/Slider/HeroSliderv2";
 
 const Home = () => {
   return (
     <div className="min-h-screen ">
-      <HeroSlider />
+      <HeroSliderv2 />
         {/* <Hero2 /> */}
       <section className="">
         <ExploreProjects />

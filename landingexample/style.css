@@ -1,0 +1,1229 @@
+/* ---------------------------------- */
+/* Base Styles               */
+/* ---------------------------------- */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+
+    /* --- SCROLL SNAP IMPLEMENTATION --- */
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 80px;
+    /* Offset for the fixed header height */
+    overflow-x: hidden;
+    /* Keep for horizontal integrity */
+
+    background-color: #dadada;
+}
+
+/* Define the smooth, gradual timing function */
+:root {
+    --smooth-transition: 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+    --reveal-transition: 2s cubic-bezier(0.23, 1, 0.320, 1);
+    --logo-collapse-height: 390px;
+    --accent-color: #9d519a;
+    /* Defined accent color for easy maintenance */
+}
+
+/* ---------------------------------- */
+/* 1. Header & Nav Styles - FINAL TRANSITION FIX */
+/* ---------------------------------- */
+
+header {
+    position: fixed;
+    /* width: 100%; <--- REMOVED: Left and Right properties now define the width */
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+    transition: all var(--smooth-transition);
+    z-index: 1000;
+    border-radius: 15px;
+    /* These properties now successfully define the 50px gap on both sides */
+    left: 10%;
+    right: 10%;
+}
+
+/* Scrolled state: Slightly less transparent background */
+header.scrolled {
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    /* For desktop, keep justify-content: space-between from .header-content */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+}
+
+.header-content {
+    /* Now 100% of the floating header bar's width */
+    width: 100%;
+    max-width: 1800px;
+    height: 100%;
+    margin: 0 auto;
+    /* FIX: Removed inner 10% padding as the 50px gap is already set on the parent header */
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all var(--smooth-transition);
+}
+
+/* DESKTOP SCROLLED STATE */
+header.scrolled .header-content {
+    /* Ensure the max-width is maintained */
+    max-width: 1800px;
+    width: 100%;
+    margin: 0 auto;
+    /* FIX: Removed inner 10% padding */
+    padding: 0;
+    /* Scrolled state: Content (Logo & Nav) is pushed to the edges of the header bar */
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* --- DESKTOP SCROLL LOGO: Controls small logo visibility and transition timing --- */
+.header-logo {
+    height: 60px;
+    opacity: 0;
+    visibility: hidden;
+    /* Hides instantly (0s) when scrolling UP and the 'scrolled' class is removed. */
+    transition:
+        opacity 0s,
+        visibility 0s;
+    pointer-events: none;
+
+}
+
+.header-logo img {
+    height: 100%;
+    display: block;
+    width: auto;
+}
+
+header.scrolled .header-logo {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    /* Applies the smooth transition only when the 'scrolled' class is added (scrolling DOWN). */
+    transition:
+        opacity var(--smooth-transition),
+        visibility var(--smooth-transition);
+}
+
+/* --- END DESKTOP SCROLL LOGO FIX --- */
+
+/* --- NEW MOBILE LOGO STYLES (Hidden by default, shown when scrolled on mobile) --- */
+.mobile-logo-wrapper {
+    display: none;
+    /* Default: Hidden on desktop and unscrolled mobile */
+}
+
+/* FIX: Ensure logo scales without distortion in mobile header */
+.mobile-logo-wrapper img {
+    max-height: 100%;
+    /* Scale height relative to wrapper (60px when scrolled) */
+    height: auto;
+    /* Preserve aspect ratio */
+    width: auto;
+    /* Preserve aspect ratio */
+    max-width: 100%;
+    /* Ensure it scales down on very small screens */
+}
+
+/* --- END NEW MOBILE LOGO STYLES --- */
+
+
+nav {
+    display: flex;
+    gap: 10px;
+    transition: all var(--smooth-transition);
+    /* Absolute positioning is correct for centering the nav over the hero section in the unscrolled state */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* DESKTOP SCROLLED NAV */
+header.scrolled nav {
+    /* Resets to relative positioning to flow naturally with the logo inside the space-between header-content */
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: 6px;
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        transform 0.3s ease;
+    white-space: nowrap;
+    /* Add text shadow for extra contrast over busy backgrounds */
+    text-shadow: 0 0 5px rgba(32, 32, 32, 0.5);
+}
+
+/* Scrolled state: Dark color for readability over light header background */
+header.scrolled nav a {
+    color: #3a3a3a;
+    text-shadow: none;
+    /* Reset background color in scrolled state */
+    background-color: transparent;
+}
+
+
+/* --- HOVER / ACTIVE STYLES (Button Effect) --- */
+/* ACCENT COLOR: #9d519a */
+
+/* Hover State - Applies to both scrolled and unscrolled */
+nav a:hover {
+    /* Use the new accent color variable */
+    background-color: var(--accent-color);
+    color: white;
+    /* Text color inside the button */
+    transform: scale(1.05);
+    text-shadow: none;
+}
+
+/* Active State (Unscrolled) */
+nav a.active {
+    /* Use the new accent color variable */
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+    text-shadow: none;
+}
+
+/* Active State (Scrolled) - Override to maintain button style */
+header.scrolled nav a.active {
+    background-color: var(--accent-color);
+    /* Same accent color */
+    color: white;
+    /* White text for contrast */
+    transform: scale(1.05);
+    text-shadow: none;
+}
+
+/* Scrolled State: Normal Hover (Maintain consistency) */
+header.scrolled nav a:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+    text-shadow: none;
+}
+
+/* --- HAMBURGER MENU STYLES (Desktop: Hidden) --- */
+.hamburger-menu {
+    display: none;
+    /* Hidden on desktop by default */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    /* Default color for contrast over dark hero */
+    z-index: 1001;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+header.scrolled .hamburger-menu {
+    color: #3a3a3a;
+    /* Dark color when scrolled for light background */
+}
+
+/* --- END HAMBURGER MENU STYLES --- */
+
+
+/* ---------------------------------- */
+/* 2. Scroll Snap Full-Screen Section Styles */
+/* ---------------------------------- */
+
+/* Apply Snapping, Min-Height (Viewport minus header), and Header Offset */
+/* NOTE: Footer has been removed from this selector */
+.services,
+.projects,
+.about-us,
+.recent-works-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
+    /* Ensure content starts below the fixed header */
+    padding-top: 80px;
+
+    /* Reset margins that conflict with full-screen snapping */
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+
+    /* Ensure sections fill the width for snapping */
+    max-width: auto;
+    /* FIX: Align section margins with the new 50px header gap */
+    margin-left: 10% !important;
+    margin-right: 10% !important;
+    border-radius: 15px;
+    background: rgb(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Set minimum height to fill the screen *minus* the header height (80px) for most sections */
+.projects,
+.about-us,
+.recent-works-section {
+    min-height: calc(100vh - 80px);
+}
+
+
+/* Wrapper to re-apply 80% width and center content inside full-width sections */
+.section-content-wrapper {
+    max-width: 80%;
+    margin: 0 auto;
+
+}
+
+
+/* ---------------------------------- */
+/* Hero Content Wrapper (BUBBLE/ORGANIC GLASSMORPHISM) */
+/* ---------------------------------- */
+.hero-content-wrapper {
+    /* Flexbox for vertical alignment and spacing */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* BUBBLE/ORGANIC SHAPE - NO SKEW */
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    /* ETHEREAL/MODERN FROSTED GLASS STYLES */
+    background: rgba(255, 255, 255, 0.05);
+    /* Very light, minimal background */
+    backdrop-filter: blur(8px);
+    /* Stronger blur for better separation */
+    border-radius: 50px;
+    /* High radius for a soft, bubble/organic shape */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Thin white border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    /* Subtle 3D shadow */
+    padding: 40px 60px;
+    text-align: center;
+    /* Center content inside */
+    max-width: 80%;
+    /* Gradual disappearance on scroll */
+    transition: opacity var(--smooth-transition);
+}
+
+/* Make the wrapper disappear when scrolled */
+header.scrolled~.hero .hero-content-wrapper {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------------------------------- */
+/* Logo Area (Inside Wrapper) */
+/* ---------------------------------- */
+.logo-area {
+    text-align: center;
+    position: static;
+    top: auto;
+    left: auto;
+    z-index: auto;
+    transition: opacity var(--smooth-transition);
+
+    /* Increased gap between logo and H2 for better separation */
+    margin-bottom: 40px;
+
+    /* Shape change: No counter-skew needed */
+    transform: none;
+}
+
+/* FIX: Ensure Hero logo scales without distortion on narrow screens */
+.logo-area img {
+    /* Preserve Aspect Ratio: scale based on width, limit max height */
+    max-height: 120px;
+    /* Maximum height for desktop */
+    height: auto;
+    /* Crucial: removes fixed height to prevent squeeze */
+    width: auto;
+    max-width: 100%;
+}
+
+/* ---------------------------------- */
+/* Content Sections Styles - Hero Reconfiguration */
+/* ---------------------------------- */
+.hero {
+    /* Full viewport height and width */
+    height: 100vh;
+    min-height: 100vh;
+
+    /* Reset padding/margin for full-screen hero at the top */
+    padding-top: 0;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+
+    position: relative;
+    top: 0;
+    margin-top: 0;
+    transition: none;
+    will-change: unset;
+
+    padding: 0;
+
+    /* Centering for the foreground content wrapper */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero h2 {
+    font-weight: 400;
+    font-size: larger;
+    color: white;
+    /* Sharper shadow for guaranteed readability over the frosted glass */
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    z-index: auto;
+    position: static;
+    /* Shape change: No counter-skew needed */
+    transform: none;
+    transition: opacity var(--smooth-transition);
+    margin: 0;
+    max-width: 80%;
+    padding: 0;
+    text-align: center;
+    margin-top: 0;
+}
+
+/* Fades the text out completely when the header collapses */
+header.scrolled~.hero h2 {
+    opacity: 0;
+}
+
+/* ---------------------------------- */
+/* Hero Slideshow Styles (Full Background) */
+/* ---------------------------------- */
+.hero-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hero-slideshow::after {
+    /* Add a subtle dark overlay for better text readability */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.hero-slideshow .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-slideshow .slide.active {
+    opacity: 1;
+}
+
+/* ---------------------------------- */
+/* NEW: Slideshow Navigation Buttons */
+/* ---------------------------------- */
+.slide-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Below the hero content wrapper (z-index: 4), above the dark overlay (z-index: 2) */
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.3);
+    /* Slightly darker background for contrast */
+    border: none;
+    color: white;
+    font-size: 2em;
+    padding: 10px 10px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    outline: none;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.slide-nav:hover {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--accent-color);
+    /* Use accent color on hover */
+}
+
+.slide-nav.prev {
+    left: 20px;
+    /* Rounded edge away from the center */
+    border-radius: 50px 50px 50px 50px;
+}
+
+.slide-nav.next {
+    right: 20px;
+    /* Rounded edge away from the center */
+    border-radius: 50px 50px 50px 50px;
+}
+
+/* ---------------------------------- */
+/* NEW: Hero Call-to-Action Button */
+/* ---------------------------------- */
+.cta-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    /* Highly rounded for a modern look */
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-top: 30px;
+    box-shadow: 0 10px 20px rgba(157, 81, 154, 0.4);
+    transition: all 0.3s ease;
+    z-index: 5;
+    /* Ensure it is above the background */
+}
+
+.cta-button:hover {
+    background-color: #8c4889;
+    /* Slightly darker shade on hover */
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(157, 81, 154, 0.6);
+}
+
+/* ---------------------------------- */
+/* NEW: About Section Styles */
+/* ---------------------------------- */
+.about-us {
+    /* Reset padding for the new full-screen approach */
+    padding-bottom: 80px;
+    background-color: rgb(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.about-us h3 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.2em;
+    color: var(--accent-color);
+}
+
+.about-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-image {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+    width: 50%;
+    color: #555;
+    font-size: 1.1em;
+}
+
+.about-text p {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.secondary-cta {
+    background: none;
+    color: var(--accent-color);
+    border: var(--accent-color) 2px solid;
+    box-shadow: none;
+    text-decoration: none;
+    padding: 10px 25px;
+}
+
+.secondary-cta:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    box-shadow: none;
+    transition: 0.5s;
+}
+
+/* ---------------------------------- */
+/* Section Reveal Styles */
+/* ---------------------------------- */
+.services,
+.projects,
+.recent-works-section,
+.about-us,
+footer {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--reveal-transition), transform var(--reveal-transition);
+    will-change: opacity, transform;
+}
+
+/* UPDATED: Added .about-us to the visible list */
+.services.visible,
+.projects.visible,
+.recent-works-section.visible,
+.about-us.visible,
+footer.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Other Section Styling */
+.services {
+    /* **FIX 1: Override full screen min-height to minimize bottom gap** */
+    min-height: 0;
+    padding-bottom: 80px;
+    text-align: center;
+    background-color: rgb(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.services h3 {
+    /* Updated to the new accent color variable */
+    color: var(--accent-color);
+    margin-bottom: 50px;
+    font-size: 2em;
+}
+
+/* **FIX 2: Set explicit 4-column layout for service cards** */
+.service-grid {
+    /* Change from flex to grid */
+    display: grid;
+    /* Set to 4 columns, or auto-fit for wrap */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.service-item {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.service-item h4 {
+    color: #3a3a3a;
+    margin-top: 0;
+}
+
+.service-item p {
+    color: #777;
+    font-size: 0.95em;
+}
+
+/* --- UPDATED PROJECT STYLES FOR MINIMAL/DYNAMIC LOOK --- */
+
+.projects,
+.recent-works-section {
+    /* Reset padding as it's handled by the section snap rules, but add internal content padding */
+    padding-bottom: 60px;
+    /* Increased bottom padding */
+    margin-top: 0;
+    background-color: rgb(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.projects h3,
+.recent-works-section h3 {
+    text-align: center;
+    margin-bottom: 50px;
+    /* Increased margin for more breathing room */
+    font-size: 2.2em;
+    color: var(--accent-color);
+}
+
+/* Updated Project Grid for a modern 3-column look (Generic) */
+.project-grid {
+    /* Fixed 3-column layout on large screens, responsive fallbacks */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    /* Increased gap for better negative space */
+}
+
+/* **Standard 3-Column Grid for Recent Works** */
+.recent-works-grid {
+    display: grid;
+    /* Explicitly set to 3 equal columns for the requested 3-column layout */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* NEW: Minimal Project Card Styling */
+.project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    /* Slightly less rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* Very subtle shadow */
+    cursor: pointer;
+}
+
+.project-card img {
+    width: 100%;
+    height: 300px;
+    /* Uniform height for a clean grid (will be overridden for Masonry) */
+    object-fit: cover;
+    border-radius: 0;
+    /* Remove image border-radius as it's on the card */
+    box-shadow: none;
+    /* Remove shadow from image */
+    transition: transform 0.5s ease;
+    /* Slower, smoother transition */
+}
+
+/* Hover Effect: Zoom and Overlay Reveal */
+.project-card:hover img {
+    transform: scale(1.05);
+}
+
+.project-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Subtle gradient for depth */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    color: white;
+    padding: 20px;
+
+    /* Dynamic reveal effect: Start hidden, slide up */
+    transform: translateY(100%);
+    transition: transform 0.5s ease-out;
+    opacity: 0;
+}
+
+.project-card:hover .project-info {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.project-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.project-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #ccc;
+    font-weight: 300;
+}
+
+/* --- START MASONRY-LIKE GRID STYLES (Applies only to featured-projects-grid) --- */
+
+/* FIX: Set up for masonry effect with dynamic row heights */
+.featured-projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columns for desktop */
+    grid-auto-rows: 10px;
+    /* Base row height for grid-row-end calculations */
+    gap: 30px;
+}
+
+.featured-projects-grid .project-card {
+    /* **FIX APPLIED: Reduced height by 50%.** Default cards span 15 rows (~150px) */
+    grid-row-end: span 15;
+}
+
+.featured-projects-grid .project-card.tall-card {
+    /* **FIX APPLIED: Reduced height by 50%.** Tall cards span 20 rows (~200px) */
+    grid-row-end: span 20;
+}
+
+/* Ensure images fill the available height in the Masonry grid container */
+.featured-projects-grid .project-card img {
+    /* Override the fixed 300px height for Masonry effect */
+    height: 100%;
+}
+
+/* --- END MASONRY-LIKE GRID STYLES --- */
+
+/* ---------------------------------- */
+/* Footer styles (Restored to normal scroll) */
+/* ---------------------------------- */
+
+/* 1. Main Footer (Ensure no snapping or mandatory height) */
+footer {
+    /* REMOVE SNAP PROPERTIES */
+    scroll-snap-align: unset;
+    scroll-snap-stop: unset;
+    min-height: unset;
+
+    /* Add padding to create separation from the last snapped section and bottom space */
+    padding-bottom: 50px;
+
+    /* Keep existing layout reset */
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    overflow: hidden;
+
+    /* Remove styling from main element, move to wrapper */
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+
+    color: #3a3a3a;
+    text-align: center;
+}
+
+/* 2. New Wrapper for the Glassmorphism/Offset Box Effect */
+.footer-content-wrapper {
+    /* Re-apply the desired width/offset effect. This wrapper will now align with the 50px section margins */
+    max-width: 80%;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+
+    /* Apply Glassmorphism */
+    background: rgb(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    padding: 60px 0;
+    /* Vertical padding */
+}
+
+/* 3. Existing Footer Content (Centered inside the wrapper) */
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    /* UPDATED: Max width to 100% of the new footer container */
+    max-width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+.footer-section {
+    margin: 20px;
+    min-width: 200px;
+}
+
+/* NEW: Footer Logo and Text Section */
+.footer-section:first-child {
+    min-width: 250px;
+    max-width: 300px;
+}
+
+.footer-section:first-child img {
+    margin-bottom: 15px;
+}
+
+.footer-section h4 {
+    /* CHANGED: Dark color for light background */
+    color: #3a3a3a;
+    margin-bottom: 20px;
+    font-weight: 600;
+    /* Updated to the new accent color variable */
+    border-bottom: 2px solid var(--accent-color);
+    /* Thicker border */
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-section p,
+.footer-section a {
+    /* CHANGED: Darker color for light background */
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    /* For icon alignment */
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    gap: 10px;
+}
+
+.footer-section p a {
+    color: #555;
+    margin: 0;
+}
+
+.footer-section a:hover {
+    color: var(--accent-color);
+}
+
+/* NEW: Social Links Container */
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    display: inline-block;
+    /* CHANGED: Dark color for light background */
+    color: #3a3a3a;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    /* Adjusted border color for contrast against new background */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 0.8em;
+    /* CHANGED: Darker color for light background */
+    color: #777;
+}
+
+/* ---------------------------------- */
+/* 3. Media Queries - Mobile Implementation */
+/* ---------------------------------- */
+
+@media (max-width: 1200px) {
+
+    /* Adjust grid columns for a 2-column Masonry on medium screens */
+    .featured-projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 5%;
+    }
+}
+
+@media (max-width: 950px) {
+
+    /* NEW METHOD FIX 1: Maximize the available space for the text bubble */
+    .hero-content-wrapper {
+        /* Force the wrapper to use almost the full screen width, overriding max-width: 80% */
+        max-width: 60%;
+        width: 100%;
+        /* Reduce side padding from 60px to a minimal 20px */
+        padding: 40px 20px;
+    }
+
+    /* --- HEADER MODIFICATIONS FOR MOBILE (UNSCROLLED STATE) --- */
+
+    header {
+        /* Mobile header should span 100% width and use padding, overriding the 50px fixed gap */
+        left: 0;
+        right: 0;
+        width: 100%;
+        /* The default state should center the content (hamburger) */
+        justify-content: center;
+    }
+
+    .header-content {
+        /* Remove 10% desktop padding for mobile */
+        padding: 0;
+        /* Ensure content inside the header is centered when unscrolled */
+        justify-content: center;
+        max-width: 100%;
+        color: white;
+    }
+
+    /* Hide the desktop-only scrolled logo */
+    .header-logo {
+        display: none;
+    }
+
+    /* HIDE the mobile logo wrapper in the unscrolled state */
+    .mobile-logo-wrapper {
+        display: none;
+    }
+
+    /* Show the hamburger menu (it will be centered now) */
+    .hamburger-menu {
+        display: block;
+        order: unset;
+    }
+
+    /* --- START CORRECT FULL-SCREEN NAV STYLES --- */
+
+    /* FIX: Target #main-nav instead of just nav. This increases specificity (1,0,0) 
+    to ensure it overrides the desktop scrolled nav styles (0,1,1) in the unscrolled state.
+  */
+    #main-nav {
+        display: none;
+        /* Hidden by default */
+
+        /* Layout and Styling */
+        transform: none;
+        flex-direction: column;
+        /* Use a solid background for full overlay */
+        background: white;
+
+        /* Center links and add padding for the header */
+        justify-content: flex-start;
+        /* Align content from the top */
+        align-items: center;
+        gap: 30px;
+        /* Increased gap between links */
+
+        /* PUSH CONTENT DOWN BELOW THE FIXED HEADER (80px height + extra spacing) */
+        padding-top: 100px;
+        padding-bottom: 30px;
+
+        /* Remove unnecessary styling that breaks full-screen */
+        box-shadow: none;
+
+        /* High Z-index to cover everything, but below the fixed header (z-index: 1000) */
+        z-index: 999;
+
+        /* Add smooth transition for opening/closing */
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        /* Start invisible */
+        pointer-events: none;
+        /* Make it unclickable when invisible */
+
+        /* Allow scrolling if menu content exceeds viewport height */
+        overflow-y: auto;
+    }
+
+    /* FIX: Target #main-nav.open. This selector (1,1,0) has guaranteed higher specificity 
+    than header.scrolled nav (0,1,1) ensuring full-screen position is applied 
+    in all open states.
+  */
+    #main-nav.open {
+        display: flex;
+        opacity: 1;
+        pointer-events: auto;
+
+        /* Full-screen positioning - will now always be applied when open */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        /* FULL VIEWPORT HEIGHT */
+    }
+
+    nav a {
+        /* Ensure links are dark on the white background, and large */
+        color: #3a3a3a !important;
+        font-size: 1.5em;
+        padding: 10px 20px;
+        text-shadow: none !important;
+    }
+
+    /* Ensure hover/active state still works */
+    nav a:hover,
+    nav a.active {
+        background-color: var(--accent-color);
+        color: white !important;
+    }
+
+    /* --- END CORRECT FULL-SCREEN NAV STYLES --- */
+
+    /* --- HEADER AND LOGO FIX FOR OPEN MENU (UNSCROLLED OR SCROLLED) --- */
+
+    /* This section correctly handles the header appearance (logo visible, dark hamburger) for ANY state where the menu is open, which is what you wanted. */
+    header:has(#main-nav.open) {
+        /* Apply scrolled background/shadow to the header when menu is open */
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.95);
+        /* Nearly opaque white background */
+        backdrop-filter: blur(8px);
+    }
+
+    header:has(#main-nav.open) .header-content {
+        /* Apply scrolled content layout (left logo, right hamburger) */
+        justify-content: space-between;
+        padding: 0 5%;
+        max-width: 100%;
+    }
+
+    header:has(#main-nav.open) .mobile-logo-wrapper {
+        /* Show the mobile logo */
+        display: flex;
+        height: 60px;
+        align-items: center;
+    }
+
+    header:has(#main-nav.open) .hamburger-menu {
+        /* Ensure dark color for the hamburger/close button */
+        color: #3a3a3a;
+    }
+
+    /* --- END HEADER AND LOGO FIX --- */
+
+
+    /* --- SCROLLED STATE (Mobile) --- */
+
+    header.scrolled .header-content {
+        /* Switch to left logo, right hamburger layout */
+        justify-content: space-between;
+        padding: 0 5%;
+        /* Use the mobile padding */
+        max-width: 100%;
+    }
+
+    /* SHOW the mobile logo wrapper when SCROLLED */
+    header.scrolled .mobile-logo-wrapper {
+        display: flex;
+        height: 60px;
+        align-items: center;
+        /* This will automatically place the logo on the left (order 1) */
+    }
+
+    header.scrolled .hamburger-menu {
+        /* Ensure dark color when scrolled */
+        color: #3a3a3a;
+        /* This will automatically place the hamburger on the right */
+    }
+
+    /* --- HERO CONTENT SCALING FIX --- */
+
+    /* Reduce the size of the main hero text for tablets/mid-mobile */
+    .hero h2 {
+        font-size: 15px;
+        /* Reduced size */
+        /* CRITICAL FIX: Zero horizontal padding for maximum text flow, overriding the problematic 100px padding */
+        padding: 8px 0;
+        text-align: center;
+        /* Ensure the H2 takes up the full width of its newly-expanded parent */
+        max-width: 100%;
+        width: auto;
+
+    }
+
+    /* Scale down the CTA button for mobile */
+    .cta-button {
+        font-size: 1em;
+        /* Slightly smaller text */
+        padding: 10px 20px;
+        /* Reduced padding */
+        margin-top: 25px;
+        /* Slightly reduced margin */
+    }
+
+    /* --- OTHER MOBILE REFINEMENTS --- */
+
+    /* About Section Stack */
+    .about-content {
+        flex-direction: column;
+    }
+
+    .about-image,
+    .about-text {
+        width: 100%;
+    }
+
+    /* Footer Refinement: Reset offset for mobile */
+    footer {
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        padding-bottom: 50px;
+    }
+
+    /* Mobile Footer Wrapper Reset */
+    .footer-content-wrapper {
+        max-width: 80%;
+        width: 80%;
+        margin: 0 auto;
+        border-radius: 15px;
+        background: rgb(255, 255, 255, 0.5);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        padding: 60px 0;
+    }
+
+    /* Footer Content adjustment */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+    }
+
+    .footer-section {
+        margin: 20px 0;
+        text-align: center;
+        min-width: 80%;
+        /* Center the contents of the footer section for mobile */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section p,
+    .footer-section a {
+        justify-content: center;
+    }
+
+    .footer-section h4 {
+        /* Reset text alignment for h4 */
+        text-align: center;
+    }
+
+    /* Project grid fallback for mobile (removes masonry on mobile) */
+    /* This block correctly forces 1 column on mobile for both grids */
+    .featured-projects-grid,
+    .recent-works-grid {
+        grid-template-columns: 1fr;
+        padding: 0 5%;
+        grid-auto-rows: unset;
+        /* Disable Masonry */
+        gap: 20px;
+    }
+
+    /* Ensure tall cards reset to normal size */
+    .featured-projects-grid .project-card,
+    .featured-projects-grid .project-card.tall-card {
+        grid-row-end: unset;
+        /* Disable masonry row span */
+    }
+
+    /* Ensure section content wrappers fill width */
+    .section-content-wrapper {
+        max-width: 90%;
+    }
+
+    /* Slideshow Buttons on Mobile */
+    .slide-nav {
+        font-size: 1.5em;
+        padding: 10px 5px;
+    }
+}
