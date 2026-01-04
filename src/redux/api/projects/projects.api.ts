@@ -82,6 +82,21 @@ export const projectsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["PROJECTS"],
     }),
+
+    // Get related projects by slug
+    getRelatedProjects: builder.query<
+      IProjectsResponse,
+      { slug: string; limit?: number }
+    >({
+      query: ({ slug, limit = 6 }) => ({
+        url: `/project/related/${slug}`,
+        method: "GET",
+        params: {
+          limit,
+        },
+      }),
+      providesTags: ["PROJECTS"],
+    }),
   }),
 });
 
@@ -91,4 +106,5 @@ export const {
   useProjectBySlugQuery,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
+  useGetRelatedProjectsQuery,
 } = projectsApi;

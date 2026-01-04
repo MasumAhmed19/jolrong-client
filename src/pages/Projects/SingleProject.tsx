@@ -183,7 +183,7 @@ const SingleProject = () => {
       )}
 
       {/* <SliderGallery gallery={gallery ?? []} showNumbers={false} /> */}
-      <RelatedProjects />
+      <RelatedProjects slug={project.slug} limit={6} />
     </div>
   );
 };
