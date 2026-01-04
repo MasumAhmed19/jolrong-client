@@ -24,9 +24,12 @@ const HeadSeciton = ({
         </div>
 
         <div className="w-1/3 flex flex-col-reverse md:flex-col items-start md:items-end gap-5 ">
+        {
+          btnText === "false" ? null : (
           <Button size="lg" className="text-white bg-primary ">
             <Link to="/projects">{btnText}</Link>
-          </Button>
+          </Button> )
+        }
         </div>
       </div>
     </div>

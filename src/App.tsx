@@ -1,14 +1,15 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Footer from "./components/Footer";
 import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
 import ScrollToTop from "./lib/ScrollToTop";
-// import Header2 from "./components/Header2";
+import Header2 from "./components/Header2";
 import Header3 from "./components/Header3";
 import ContainerWidth from "./layout/ContainerWidth";
 
 
 function App() {
+  const location = useLocation();
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -33,10 +34,11 @@ function App() {
     };
   }, []);
 
+
   return (
     <>
       <ScrollToTop />
-      <Header3 />
+        {location.pathname === "/" ? <Header3 /> : <Header2 />}
 
       <ContainerWidth>
         <Outlet />

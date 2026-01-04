@@ -6,7 +6,7 @@ const ExploreProjects = () => {
   return (
     <BaseSection>
       <HeadSeciton
-        title="Explore Our Proudly Collection"
+        title="Our Recent Projects"
         btnText="Learn More"
         description="Jolrong Architect will showcase its vision of contemporary architecture, interior design trends, and innovative living."
       />

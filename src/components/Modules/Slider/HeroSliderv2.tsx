@@ -1,25 +1,26 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import MainLogo from "@/assets/MainLogo.png";
+// import MainLogo from "@/assets/MainLogo.png";
+import JolrongLogoWhite from "@/assets/JolrongLogoWhite.png";
 
 // Mock data for demonstration
 const heroSlides = [
   {
     id: 1,
     bgImage:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=1080&fit=crop",
+      "https://res.cloudinary.com/do0abdlxo/image/upload/v1762486024/jolrong/2c-1762486024309.jpg",
     title: "Modern Architecture",
   },
   {
     id: 2,
     bgImage:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&h=1080&fit=crop",
+      "https://res.cloudinary.com/do0abdlxo/image/upload/v1762486024/jolrong/1-1762486024246.jpg",
     title: "Contemporary Design",
   },
   {
     id: 3,
     bgImage:
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1920&h=1080&fit=crop",
+      "https://res.cloudinary.com/do0abdlxo/image/upload/v1762485434/jolrong/1r%20%284%29-1762485434409.jpg",
     title: "Luxury Living",
   },
 ];
@@ -82,8 +83,8 @@ const HeroSliderv2 = () => {
   }, [current]);
 
   return (
-    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] -mt-[8vh] md:-mt-[10vh]">
-      <div className="relative h-screen min-h-[500px] max-h-[1080px] overflow-hidden">
+    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] -mt-[8.2vh] md:-mt-[10vh]">
+      <div className="relative md:h-screen h-[90vh] min-h-[500px] max-h-[1080px] overflow-hidden">
         {/* Sliding Images Container */}
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
@@ -100,7 +101,7 @@ const HeroSliderv2 = () => {
                 alt={slide.title}
                 className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/70"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
             </div>
           ))}
         </div>
@@ -113,8 +114,8 @@ const HeroSliderv2 = () => {
                 {/* Logo */}
                 <div className="w-full flex justify-center">
                   <img
-                    className="h-12 xs:h-14 sm:h-16 md:h-24  w-auto object-contain"
-                    src={MainLogo}
+                    className="h-14 sm:h-16 md:h-30  w-auto object-contain"
+                    src={JolrongLogoWhite}
                     alt="Logo"
                   />
                 </div>
