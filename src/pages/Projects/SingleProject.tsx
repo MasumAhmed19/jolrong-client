@@ -110,7 +110,16 @@ const SingleProject = () => {
                 <InfoRow label="Name:" value={name} />
                 <InfoRow label="Client: " value={client} />
                 <InfoRow label="Project Type:" value={type} />
-                <InfoRow label="Type of work:" value={typeofWork} />
+                <InfoRow
+                  label="Type of work:"
+                  value={
+                    Array.isArray(typeofWork)
+                      ? typeofWork
+                          .map((work) => work.charAt(0) + work.slice(1).toLowerCase())
+                          .join(", ")
+                      : typeofWork
+                  }
+                />
                 <InfoRow label="Location:" value={location} />
                 <InfoRow label="Size:" value={size} />
                 <InfoRow label="Status:" value={status} />

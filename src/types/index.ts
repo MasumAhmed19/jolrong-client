@@ -54,7 +54,7 @@ export interface IProject {
   size: string;
   type: ProjectType;
   status: ProjectStatus;
-  typeofWork: TypeOfWork
+  typeofWork: TypeOfWork[]
   year: string;
   description?: string;
   image?: string;
@@ -78,7 +78,7 @@ export interface ICreateProjectPayload {
   size: string;
   type: ProjectType;
   status: ProjectStatus;
-  typeofWork: TypeOfWork 
+  typeofWork: TypeOfWork[]
   year: string;
   featuredVideo?: string,
   description?: string;
@@ -97,7 +97,7 @@ export interface IUpdateProjectPayload {
   location?: string;
   size?: string;
   type?: ProjectType;
-  typeofWork?: TypeOfWork 
+  typeofWork?: TypeOfWork[] 
   status?: ProjectStatus;
   description?: string;
   featuredVideo?: string,

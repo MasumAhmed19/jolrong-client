@@ -35,7 +35,7 @@ const projectSchema = z.object({
   size: z.string().min(1, "Size is required"),
   type: z.string().min(1, "Project type is required"),
   status: z.string().min(1, "Project status is required"),
-  typeofWork: z.string().min(1, "Type of work is required"),
+  typeofWork: z.array(z.string()).min(1, "Please select at least one type of work"),
   year: z.string().min(1, "Year is required"),
   description: z.string().optional(),
   image: z.string().optional(),
@@ -210,25 +210,32 @@ const ProjectForm = ({
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormLabel>Type of work *</FormLabel>
-                <FormControl className="w-full">
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select type of work" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {typeofWork.map((status) => (
-                        <SelectItem
-                          key={status}
-                          value={status}
-                          className="capitalize"
-                        >
-                          {status.charAt(0).toUpperCase() +
-                            status.slice(1).toLowerCase()}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
+                <div className="space-y-2">
+                  {typeofWork.map((work) => (
+                    <div key={work} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id={`work-${work}`}
+                        checked={(field.value || []).includes(work)}
+                        onChange={(e) => {
+                          const currentValue = field.value || [];
+                          const newValue = e.target.checked
+                            ? [...currentValue, work]
+                            : currentValue.filter((w) => w !== work);
+                          field.onChange(newValue);
+                        }}
+                        className="w-4 h-4 rounded border-gray-300 cursor-pointer"
+                      />
+                      <label
+                        htmlFor={`work-${work}`}
+                        className="text-sm font-medium leading-none cursor-pointer"
+                      >
+                        {work.charAt(0).toUpperCase() +
+                          work.slice(1).toLowerCase()}
+                      </label>
+                    </div>
+                  ))}
+                </div>
                 <FormMessage />
               </FormItem>
             )}

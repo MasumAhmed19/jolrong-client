@@ -31,7 +31,7 @@ const CreateProjectPage = () => {
         location: "",
         size: "",
         type: "",
-        typeofWork: "",
+        typeofWork: [],
         status: "",
         description: "",
         image: "",

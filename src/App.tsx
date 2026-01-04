@@ -6,6 +6,7 @@ import ScrollToTop from "./lib/ScrollToTop";
 import Header2 from "./components/Header2";
 import Header3 from "./components/Header3";
 import ContainerWidth from "./layout/ContainerWidth";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Outlet />
       </ContainerWidth>
       <Footer />
+      <WhatsAppFloat />
     </>
   );
 }

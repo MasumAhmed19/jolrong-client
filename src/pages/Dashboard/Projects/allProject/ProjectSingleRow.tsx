@@ -103,7 +103,13 @@ const ProjectSingleRow: React.FC<IProjectCardProps> = ({
       <TableCell className="pl-4">{index + 1}</TableCell>
       <TableCell className="font-medium">{project.name}</TableCell>
       <TableCell>{project.type.charAt(0) + project.type.slice(1).toLowerCase()}</TableCell>
-      <TableCell>{project.typeofWork && project.typeofWork.charAt(0) + project.typeofWork.slice(1).toLowerCase()}</TableCell>
+      <TableCell>
+        {project.typeofWork && project.typeofWork.length > 0
+          ? project.typeofWork
+              .map((work) => work.charAt(0) + work.slice(1).toLowerCase())
+              .join(", ")
+          : "N/A"}
+      </TableCell>
       <TableCell>{project.status.charAt(0) + project.status.slice(1).toLowerCase()}</TableCell>
       <TableCell>{project.year}</TableCell>
       <TableCell className="flex items-center gap-3">

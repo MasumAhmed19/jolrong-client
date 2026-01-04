@@ -134,7 +134,7 @@ const HeroSliderv2 = () => {
         {/* Navigation Buttons - Hidden on Mobile, Visible on Tablet+ */}
         <button
           onClick={goToPrev}
-          className="absolute left-3 sm:left-4 md:left-6 lg:left-8 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-12 lg:w-12 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-sm border border-white/30 text-white transition-all flex items-center justify-center pointer-events-auto hidden sm:flex"
+          className="absolute left-3 sm:left-4 md:left-6 lg:left-8 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-12 lg:w-12 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-sm border border-white/30 text-white transition-all flex items-center justify-center pointer-events-auto  sm:flex"
           aria-label="Previous slide"
         >
           <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
@@ -142,7 +142,7 @@ const HeroSliderv2 = () => {
 
         <button
           onClick={goToNext}
-          className="absolute right-3 sm:right-4 md:right-6 lg:right-8 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-12 lg:w-12 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-sm border border-white/30 text-white transition-all flex items-center justify-center pointer-events-auto hidden sm:flex"
+          className="absolute right-3 sm:right-4 md:right-6 lg:right-8 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-12 lg:w-12 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-sm border border-white/30 text-white transition-all flex items-center justify-center pointer-events-auto  sm:flex"
           aria-label="Next slide"
         >
           <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
