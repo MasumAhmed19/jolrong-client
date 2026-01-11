@@ -49,7 +49,7 @@ const Expertise = () => {
           {expertiseData.map((expertise) => {
             const Icon = expertise.icon;
             return (
-              <div key={expertise.id} className="space-y-3 bg-gray-50  p-5 md:p-10 rounded-s-md">
+              <div key={expertise.id} className="space-y-3 border hover:border-primary transition duration-300 p-5 md:p-10 rounded-md">
                 <Icon className="w-8 h-8 text-[#9d519a] mb-2" />
                 <h3 className="text-xl font-medium">{expertise.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">

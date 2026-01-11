@@ -5,7 +5,7 @@ import FeaturedProjects from "./FeaturesProjects";
 const ExploreProjects = () => {
   return (
     <BaseSection>
-      <div className="-mb-10 md:-mb-30">
+      <div className="-mb-10 md:-mb-30 -mt-15">
         <HeadSeciton
           title="Our Recent Projects"
           btnText="Learn More"

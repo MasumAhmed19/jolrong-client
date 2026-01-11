@@ -10,7 +10,7 @@ const ContainerWidth = ({ children, className }: IContainerWid) => {
   return (
     <div
       className={cn(
-        "container mx-auto p-[2vh] md:px-[3.8vh] space-y-5",
+        "container mx-auto space-y-5",
         className
       )}
     >

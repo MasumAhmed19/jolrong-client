@@ -30,7 +30,7 @@ const DesktopHeader = ({ navLinks }: DesktopHeaderProps) => {
     transition-all duration-300 z-[100] rounded-2xl
     ${
       isScrolled
-        ? "top-0 left-1/2 -translate-x-1/2 bg-white/60 backdrop-blur-md scale-95 shadow-[0_3px_15px_rgba(0,0,0,0.1)]"
+        ? "top-0 left-1/2 -translate-x-1/2 bg-white/60 backdrop-blur-md scale-100 shadow-[0_3px_15px_rgba(0,0,0,0.1)]"
         : "top-5 left-1/2 -translate-x-1/2 bg-transparent"
     }`}
       >
