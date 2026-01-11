@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 // import MainLogo from "@/assets/MainLogo.png";
 import JolrongLogoWhite from "@/assets/JolrongLogoWhite.png";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 // Mock data for demonstration
 const heroSlides = [
@@ -84,7 +86,7 @@ const HeroSliderv2 = () => {
 
   return (
     <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] -mt-[8.2vh] md:-mt-[10vh]">
-      <div className="relative md:h-screen h-[90vh] min-h-[500px] max-h-[1080px] overflow-hidden">
+      <div className="relative md:min-h-[107vh] h-[99vh] min-h-[500px] max-h-[1080px] overflow-hidden">
         {/* Sliding Images Container */}
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
@@ -107,10 +109,10 @@ const HeroSliderv2 = () => {
         </div>
 
         {/* Static Overlay Content */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 px-4">
+        <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
           <div className="w-full max-w-[90%] xs:max-w-sm sm:max-w-md md:max-w-lg ">
             <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-[20px] sm:rounded-[30px] md:rounded-[40px] lg:rounded-[50px] p-6 sm:p-8 md:p-10  text-white shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
-              <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+              <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-4">
                 {/* Logo */}
                 <div className="w-full flex justify-center">
                   <img
@@ -125,7 +127,9 @@ const HeroSliderv2 = () => {
                   Creating timeless spaces that define contemporary living.
                 </h2>
 
-
+                <Button size="lg" className="text-white bg-primary ">
+                  <Link to="/projects">View Our Work</Link>
+                </Button>
               </div>
             </div>
           </div>

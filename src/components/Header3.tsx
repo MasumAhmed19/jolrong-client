@@ -179,13 +179,14 @@ const Header3 = () => {
   const { data: userInfo } = useUserInfoQuery({});
   const user = userInfo?.data;
 
-  // ✅ Single source of truth
+
   const navLinks = user
     ? [...baseNavLinks, { label: "Dashboard", href: "/dashboard" }]
     : baseNavLinks;
 
   return (
     <>
+
       <DesktopHeader navLinks={navLinks} />
       <MobileHeader navLinks={navLinks} />
     </>
