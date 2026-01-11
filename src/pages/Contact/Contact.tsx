@@ -28,16 +28,10 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-white mt-20">
-      {/* <div className='rounded-2xl overflow-hidden h-[50vh]'>
-        <img src="https://i.ibb.co.com/4n5zdQL7/download.webp" alt=""  className='h-full w-full object-cover'/>
-      </div> */}
-      {/* <div className='pt-[100px]'>
-        <HeadSeciton title='Contact Us' description="Ready to transform your space? We'd love to hear about your project and discuss how 
-              we can bring your architectural vision to life." />
-      </div> */}
+    <div className="min-h-screen bg-white mb-60 md:mb-70 md:px-0 px-6">
 
-      <div className="md:pt-[60px] md:mb-[100px] ">
+
+      <div className="md:py-[40px] ">
         <HeadSecitonv2
           title="Contact Us"
           description="Ready to transform your space? We'd love to hear about your project and discuss how 
@@ -167,8 +161,8 @@ export default function Contact() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 sm:py-24 bg-gray-50 mt-20">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section className="py-10 bg-gray-50 mt-20 ">
+        <div className="container mx-auto">
           <div className="px-10 mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-light mb-6 text-gray-900">

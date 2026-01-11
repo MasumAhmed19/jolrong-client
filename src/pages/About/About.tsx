@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white mt-20">
+    <div className="min-h-screen bg-white mb-25 md:px-0 px-6">
       {/* <div className='rounded-2xl overflow-hidden h-[50vh]'>
         <img src="https://i.ibb.co.com/4n5zdQL7/download.webp" alt=""  className='h-full w-full object-cover'/>
       </div> */}
-      <div className="md:pt-[60px] md:mb-[100px] ">
+      <div className="md:py-[40px] ">
         <HeadSecitonv2
           title="About Us"
           description="Ready to transform your space? We'd love to hear about your project and discuss how 

@@ -1,5 +1,14 @@
+
+
 import ContainerWidth from "@/layout/ContainerWidth";
-import { FacebookIcon, InstagramIcon } from "lucide-react";
+import { 
+  InstagramIcon, 
+  LinkedinIcon, 
+  TwitterIcon, 
+  MapPin, 
+  Mail, 
+  Phone 
+} from "lucide-react";
 import Logo from "./Shared/Logo";
 import { Link } from "react-router";
 
@@ -8,76 +17,74 @@ interface MenuItem {
   path: string;
 }
 
-interface SocialLink {
-  icon: React.ReactNode;
-  href: string;
-  label: string;
-}
-
 const Footer = () => {
   const menuItems: MenuItem[] = [
     { label: "Home", path: "/" },
     { label: "Projects", path: "/projects" },
-    { label: "About", path: "/about" },
-    { label: "Contact", path: "/contact" },
-  ];
-
-  const socialLinks: SocialLink[] = [
-    {
-      icon: <FacebookIcon size={17} />,
-      href: "https://facebook.com/jolrongarchitects",
-      label: "Facebook",
-    },
-    {
-      icon: <InstagramIcon size={17} />,
-      href: "https://instagram.com/jolrongarchitects",
-      label: "Instagram",
-    },
+    { label: "Services", path: "/services" },
+    { label: "About Us", path: "/about" },
   ];
 
   return (
-    <footer className="pb-5">
-      <ContainerWidth className="bg-black/4 rounded-3xl">
-        <div className="py-10 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-          {/* Brand */}
-          <Logo />
+    <footer className={`pb-10 -mt-50`}>
+      <ContainerWidth className="bg-[#f6f6f6] rounded-[40px] px-6 md:px-10 pt-16 pb-8 text-[#4A4A4A]">
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+          
+          {/* Column 1: Brand & Bio */}
+          <div className="space-y-6">
+            <Logo />
+            <p className="text-sm leading-relaxed max-w-xs">
+              Excellence in design and execution since 1998. 
+              Creating timeless spaces that define contemporary living.
+            </p>
+            <div className="flex items-center gap-4">
+              <Link to="#" className="hover:text-primary transition-colors"><LinkedinIcon size={20} /></Link>
+              <Link to="#" className="hover:text-primary transition-colors"><InstagramIcon size={20} /></Link>
+              <Link to="#" className="hover:text-primary transition-colors"><TwitterIcon size={20} /></Link>
+            </div>
+          </div>
 
-          {/* Navigation Menu */}
-          <nav>
-            <ul className="flex flex-wrap items-center justify-center gap-6">
+          {/* Column 2: Navigation */}
+          <div>
+            <h3 className="font-bold text-gray-900 uppercase tracking-wider mb-2">Navigation</h3>
+            <div className="w-32 h-[2px] bg-primary mb-6"></div>
+            <ul className="space-y-3">
               {menuItems.map((item) => (
-                <li key={item.path}>
-                  <Link
-                    to={item.path}
-                    className="text-sm font-medium hover:text-primary transition-colors duration-300"
-                  >
+                <li key={item.label}>
+                  <Link to={item.path} className="text-sm hover:text-primary transition-all">
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
 
-          {/* Social Icons */}
-          <div className="flex items-center gap-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full text-white bg-primary hover:bg-primary/80 transition-colors duration-300"
-                aria-label={link.label}
-              >
-                {link.icon}
-              </a>
-            ))}
+          {/* Column 3: Contact */}
+          <div>
+            <h3 className="font-bold text-gray-900 uppercase tracking-wider mb-2">Contact</h3>
+            <div className="w-32 h-[2px] bg-primary mb-6"></div>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-sm">
+                <MapPin size={18} className="shrink-0" />
+                <span>Khilkhet, Dhaka-1229, Bangladesh</span>
+              </li>
+              <li className="flex items-center gap-3 text-sm">
+                <Mail size={18} className="shrink-0" />
+                <a href="mailto:info@jolrong.com" className="hover:underline">info@jolrong.com</a>
+              </li>
+              <li className="flex items-center gap-3 text-sm">
+                <Phone size={18} className="shrink-0" />
+                <span>(555) 123-4567</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-6 text-center">
-          <p className="text-sm text-gray-500">
-            © 2025 Jolrong Architects. All rights reserved.
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-300 pt-8 text-center pb-8">
+          <p className="text-xs text-gray-500">
+            © {new Date().getFullYear()} Jolrong Architects. All rights reserved.
           </p>
         </div>
       </ContainerWidth>
