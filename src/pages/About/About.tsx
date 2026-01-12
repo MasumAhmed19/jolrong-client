@@ -1,14 +1,12 @@
 import Copy from "@/components/copy/Copy";
 import HeadSecitonv2 from "@/components/Modules/HeadSectionv2";
+import ContainerWidth from "@/layout/ContainerWidth";
 import { imageVariants } from "@/types";
 import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white mb-25 md:px-0 px-6">
-      {/* <div className='rounded-2xl overflow-hidden h-[50vh]'>
-        <img src="https://i.ibb.co.com/4n5zdQL7/download.webp" alt=""  className='h-full w-full object-cover'/>
-      </div> */}
+    <ContainerWidth className="min-h-screen bg-white mb-60 md:mb-25 md:px-0 px-6">
       <div className="md:py-[40px] ">
         <HeadSecitonv2
           title="About Us"
@@ -18,7 +16,7 @@ const About = () => {
       </div>
 
       <section className="">
-        <div className="container mx-auto ">
+        <div className="">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <Copy delay={0.2}>
@@ -66,7 +64,7 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+    </ContainerWidth>
   );
 };
 

@@ -16,22 +16,37 @@ export function MediaModal({
 }: MediaModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
-    setIsOpen(true);
-    document.body.style.overflow = "hidden";
-  };
+const openModal = () => {
+  const scrollY = window.scrollY;
 
-  const closeModal = () => {
-    setIsOpen(false);
-    document.body.style.overflow = "auto";
-  };
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+
+  setIsOpen(true);
+};
+const closeModal = () => {
+  const scrollY = document.body.style.top;
+
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+
+  window.scrollTo(0, parseInt(scrollY || "0") * -1);
+  setIsOpen(false);
+};
+
 
   return (
     <>
       {/* Thumbnail */}
       <motion.div
         onClick={openModal}
-        className={`relative overflow-hidden rounded-lg cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98] ${className}`}
+        className={`relative overflow-hidden rounded-lg cursor-pointer transition-transform hover:scale-[1.02]  active:scale-[0.98] ${className}`}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -60,13 +75,13 @@ export function MediaModal({
       {/* Lightbox Modal */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-[150] flex items-center justify-center bg-black/90 p-4 animate-in fade-in duration-200"
           onClick={closeModal}
         >
           {/* Close Button */}
           <button
             onClick={closeModal}
-            className="absolute cursor-pointer top-4 right-4 p-2 md:p-3 text-white bg-black/50 hover:bg-black/70 rounded-full transition-colors z-10"
+            className="absolute cursor-pointer top-4 right-4 p-2 md:p-3 text-white bg-black/50 hover:bg-black/70 rounded-full transition-colors z-[150]"
             aria-label="Close"
           >
             <X size={24} />

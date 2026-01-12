@@ -42,7 +42,7 @@ const RelatedProjects = ({ slug, limit = 6 }: RelatedProjectsProps) => {
   }
 
   return (
-    <div className="py-12">
+    <div className="py-12 mb-60">
       <Copy>
         <h2 className="text-2xl font-semibold uppercase text-gray-900 mb-8">
           Explore More Related Projects
@@ -103,10 +103,10 @@ const RelatedProjects = ({ slug, limit = 6 }: RelatedProjectsProps) => {
           ))}
         </CarouselContent>
 
-        <CarouselPrevious className="left-0 -translate-x-12 hidden md:flex h-12 w-12 bg-white hover:bg-gray-100  text-gray-800">
+        <CarouselPrevious className="-left-2 -translate-x-12 hidden md:flex h-12 w-12 bg-white hover:bg-gray-100  text-gray-800">
           <ChevronLeft className="h-6 w-6" />
         </CarouselPrevious>
-        <CarouselNext className="right-0 translate-x-12 hidden md:flex h-12 w-12 bg-white hover:bg-gray-100  text-gray-800">
+        <CarouselNext className="-right-2 translate-x-12 hidden md:flex h-12 w-12 bg-white hover:bg-gray-100  text-gray-800">
           <ChevronRight className="h-6 w-6" />
         </CarouselNext>
       </Carousel>

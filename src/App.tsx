@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import ScrollToTop from "./lib/ScrollToTop";
 import Header2 from "./components/Header2";
 import Header3 from "./components/Header3";
-import ContainerWidth from "./layout/ContainerWidth";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 
 
@@ -38,13 +37,13 @@ function App() {
 
   return (
 
-    <div className="overflow-x-hidden">
+    <div className="">
       <ScrollToTop />
         {location.pathname === "/" ? <Header3 /> : <Header2 />}
 
-      <ContainerWidth>
+      <main>
         <Outlet />
-      </ContainerWidth>
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

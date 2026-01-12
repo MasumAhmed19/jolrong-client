@@ -55,6 +55,7 @@ const projectTypes: ProjectType[] = [
   "INTERIOR",
   "STRUCTURAL",
   "GRAPHICS",
+  "LANDSCAPE"
 ];
 
 const projectStatuses: ProjectStatus[] = ["ONGOING", "COMPLETED", "UPCOMING"];

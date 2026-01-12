@@ -84,6 +84,7 @@ const AllProjectDashboard = () => {
     "INTERIOR",
     "STRUCTURAL",
     "GRAPHICS",
+    "LANDSCAPE"
   ];
 
   const projectStatuses: Array<ProjectStatus | "ALL"> = [
@@ -125,7 +126,7 @@ const AllProjectDashboard = () => {
                 {(selectedType !== "ALL" ? 1 : 0) +
                   (selectedStatus !== "ALL" ? 1 : 0) +
                   (selectedWorkType !== "ALL" ? 1 : 0) +
-                  (selectedYear !== "ALL" ? 1 : 0)} {/* ✅ NEW: Include year count */}
+                  (selectedYear !== "ALL" ? 1 : 0)} 
               </Badge>
             )}
           </Button>
@@ -209,7 +210,7 @@ const AllProjectDashboard = () => {
             </Select>
           </div>
 
-          {/* ✅ NEW: Year Filter */}
+          {/* Year Filter */}
           <div className="w-full md:w-auto">
             <Select
               value={selectedYear}
@@ -263,7 +264,7 @@ const AllProjectDashboard = () => {
                 Status: {selectedStatus}
               </Badge>
             )}
-            {/* ✅ NEW: Year badge */}
+            {/* Year badge */}
             {selectedYear !== "ALL" && (
               <Badge variant="secondary" className="gap-1">
                 Year: {selectedYear}

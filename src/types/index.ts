@@ -38,7 +38,7 @@ export interface IPaginationResponse<T> {
 }
 
 
-export type ProjectType ="EXTERIOR"| "INTERIOR" | "STRUCTURAL" | "GRAPHICS"
+export type ProjectType ="EXTERIOR"| "INTERIOR" | "STRUCTURAL" | "GRAPHICS" | "LANDSCAPE"
 
 export type ProjectStatus = "ONGOING"| "UPCOMING" | "COMPLETED"
 

@@ -17,7 +17,8 @@ type ProjectType =
   | "exterior" 
   | "interior" // Note: Typo kept consistent with your JSON
   | "structural" 
-  | "graphics";
+  | "graphics"
+  | "landscape";
 
   type ProjectStatus =
   | "design"

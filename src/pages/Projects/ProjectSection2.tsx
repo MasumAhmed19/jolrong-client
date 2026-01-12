@@ -79,6 +79,7 @@ const ProjectsSection2 = () => {
     "INTERIOR",
     "STRUCTURAL",
     "GRAPHICS",
+    "LANDSCAPE"
   ];
 
   const projectStatuses: Array<ProjectStatus | "ALL"> = [
@@ -104,7 +105,7 @@ const ProjectsSection2 = () => {
   return (
     <BaseSection>
       {/* Filter Section */}
-      <div className="mb-8 space-y-4 -mt-30 md:-mt-50">
+      <div className="mb-8 space-y-4 -mt-30 md:-mt-40">
         {/* Filter Toggle Button - Mobile */}
         <div className="flex items-center justify-between">
           <Button
@@ -309,7 +310,7 @@ const ProjectsSection2 = () => {
         </>
       )}
 
-      <div className="pt-32">
+      <div className="pt-10 mb-15">
         <PaginationModule
           page={page}
           totalPages={totalPages}

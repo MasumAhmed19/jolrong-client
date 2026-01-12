@@ -7,7 +7,7 @@ import JolrongLogoWhite from "@/assets/JolrongLogoWhite.png";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 
-// Mock data for demonstration
+// static data for demonstration
 const heroSlides = [
   {
     id: 1,
@@ -32,7 +32,7 @@ const heroSlides = [
 const HeroSliderv2 = () => {
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
+  // const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -118,7 +118,7 @@ const HeroSliderv2 = () => {
   }, [current]);
 
   return (
-   <div className="relative w-screen left-1/2 -ml-[50vw] -mt-[8.2vh] md:-mt-[10vh]">
+   <div className="relative w-full -mt-[8.2vh] md:-mt-[10vh] overflow-hidden">
      <div 
         ref={containerRef}
         className="relative md:min-h-[110vh] h-[108vh] min-h-[500px] max-h-[1080px] overflow-hidden"
@@ -128,7 +128,7 @@ const HeroSliderv2 = () => {
       >
         {/* Sliding Images Container */}
         <div className="absolute inset-0">
-          {heroSlides.map((slide, index) => (
+          {heroSlides.map((slide, _index) => (
             <div
               key={slide.id}
               className={`slide-item absolute inset-0 opacity-0 pointer-events-none`}

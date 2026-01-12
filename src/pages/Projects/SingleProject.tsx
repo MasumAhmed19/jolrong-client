@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import { containerVariants, imageVariants } from "@/types";
 import RelatedProjects from "./RelatedProjects";
 import InfoRow from "@/components/Modules/Projects/InfoRow";
+import ContainerWidth from "@/layout/ContainerWidth";
 
 const SingleProject = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -51,7 +52,7 @@ const SingleProject = () => {
   } = project;
 
   return (
-    <div className="min-h-screen flex flex-col mt-20">
+    <ContainerWidth className="min-h-screen flex flex-col mt-10">
       {/* Hero Section */}
       <div className="relative w-full h-[70vh] rounded-xl overflow-hidden">
         <img src={image} alt={name} className="w-full h-full object-cover" />
@@ -184,7 +185,7 @@ const SingleProject = () => {
 
       {/* <SliderGallery gallery={gallery ?? []} showNumbers={false} /> */}
       <RelatedProjects slug={project.slug} limit={6} />
-    </div>
+    </ContainerWidth>
   );
 };
 

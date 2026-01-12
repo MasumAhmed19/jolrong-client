@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Phone, Mail } from "lucide-react";
 import HeadSecitonv2 from "@/components/Modules/HeadSectionv2";
+import ContainerWidth from "@/layout/ContainerWidth";
 
 export default function Contact() {
   const contactInfo = [
@@ -28,9 +29,7 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-white mb-60 md:mb-70 md:px-0 px-6">
-
-
+    <ContainerWidth className="min-h-screen bg-white mb-60 md:mb-70 md:px-0 px-6">
       <div className="md:py-[40px] ">
         <HeadSecitonv2
           title="Contact Us"
@@ -96,10 +95,12 @@ export default function Contact() {
                       <SelectValue placeholder="Select project type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="residential">Exterior</SelectItem>
-                      <SelectItem value="commercial">Interior</SelectItem>
-                      <SelectItem value="institutional">Structural</SelectItem>
-                      <SelectItem value="renovation">Graphics</SelectItem>
+                      <SelectItem value="EXTERIOR">Exterior</SelectItem>
+                      <SelectItem value="INTERIOR">Interior</SelectItem>
+                      <SelectItem value="STRUCTURAL">Structural</SelectItem>
+                      <SelectItem value="GRAPHICS">Graphics</SelectItem>
+                      <SelectItem value="LANDSCAPE">Landscape</SelectItem>
+
                     </SelectContent>
                   </Select>
                 </div>
@@ -247,6 +248,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </div>
+    </ContainerWidth>
   );
 }
