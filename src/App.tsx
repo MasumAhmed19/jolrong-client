@@ -37,7 +37,8 @@ function App() {
 
 
   return (
-    <>
+
+    <div className="overflow-x-hidden">
       <ScrollToTop />
         {location.pathname === "/" ? <Header3 /> : <Header2 />}
 
@@ -46,7 +47,7 @@ function App() {
       </ContainerWidth>
       <Footer />
       <WhatsAppFloat />
-    </>
+    </div>
   );
 }
 

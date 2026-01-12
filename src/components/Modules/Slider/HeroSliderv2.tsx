@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 // import MainLogo from "@/assets/MainLogo.png";
 import JolrongLogoWhite from "@/assets/JolrongLogoWhite.png";
 import { Button } from "@/components/ui/button";
@@ -31,77 +33,110 @@ const HeroSliderv2 = () => {
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = useCallback((index: number) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrent(index);
     setTimeout(() => setIsTransitioning(false), 700);
-  };
+  }, [isTransitioning]);
 
-  const goToNext = () => {
-    const nextIndex = current === heroSlides.length - 1 ? 0 : current + 1;
+  const goToNext = useCallback(() => {
+    const nextIndex = (current + 1) % heroSlides.length;
     goToSlide(nextIndex);
-  };
+  }, [current, goToSlide]);
 
-  const goToPrev = () => {
+  const goToPrev = useCallback(() => {
     const prevIndex = current === 0 ? heroSlides.length - 1 : current - 1;
     goToSlide(prevIndex);
+  }, [current, goToSlide]);
+
+  // Swipe handling
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
   };
 
-  // Autoplay functionality
-  useEffect(() => {
-    const startAutoplay = () => {
-      if (autoplayRef.current) {
-        clearInterval(autoplayRef.current);
-      }
-      autoplayRef.current = setInterval(() => {
-        goToNext();
-      }, 6000);
-    };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
 
-    const stopAutoplay = () => {
-      if (autoplayRef.current) {
-        clearInterval(autoplayRef.current);
-        autoplayRef.current = null;
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const distance = touchStartX.current - touchEndX.current;
+    const isSignificant = Math.abs(distance) > 50;
+
+    if (isSignificant) {
+      if (distance > 0) {
+        goToNext();
+      } else {
+        goToPrev();
       }
-    };
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  // Autoplay functionality - robust version
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goToNext();
+    }, 5000);
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        stopAutoplay();
-      } else {
-        startAutoplay();
+        clearInterval(interval);
       }
     };
 
-    startAutoplay();
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      stopAutoplay();
+      clearInterval(interval);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
+  }, [goToNext]);
+
+  // GSAP animations for smoother transitions
+  useGSAP(() => {
+    const slides = gsap.utils.toArray(".slide-item") as Element[];
+    gsap.to(slides, {
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.inOut",
+      pointerEvents: "none"
+    });
+    gsap.to(slides[current], {
+      opacity: 1,
+      duration: 0.7,
+      ease: "power2.inOut",
+      pointerEvents: "auto"
+    });
   }, [current]);
 
   return (
-    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] -mt-[8.2vh] md:-mt-[10vh]">
-      <div className="relative md:min-h-[107vh] h-[99vh] min-h-[500px] max-h-[1080px] overflow-hidden">
+   <div className="relative w-screen left-1/2 -ml-[50vw] -mt-[8.2vh] md:-mt-[10vh]">
+     <div 
+        ref={containerRef}
+        className="relative md:min-h-[110vh] h-[108vh] min-h-[500px] max-h-[1080px] overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Sliding Images Container */}
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                index === current
-                  ? "opacity-100"
-                  : "opacity-0 pointer-events-none"
-              }`}
+              className={`slide-item absolute inset-0 opacity-0 pointer-events-none`}
             >
               <img
                 src={slide.bgImage}
                 alt={slide.title}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
             </div>
@@ -173,3 +208,4 @@ const HeroSliderv2 = () => {
 };
 
 export default HeroSliderv2;
+
