@@ -9,7 +9,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -21,7 +20,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Edit, Trash2, Plus, Search, Eye } from "lucide-react";
+import { Edit, Trash2, Plus, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { useAllCreativePostsQuery, useDeleteCreativePostMutation } from "@/redux/api/creative/creative.api";
 import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
@@ -30,26 +29,26 @@ const PAGE_LIMIT = 10;
 
 const AllCreativeDashboard = () => {
     const [page, setPage] = useState(1);
-    const [search, setSearch] = useState("");
-    const [debouncedSearch, setDebouncedSearch] = useState("");
+    // const [search, setSearch] = useState("");
+    // const [debouncedSearch, setDebouncedSearch] = useState("");
 
     const { data: creativeData, isLoading } = useAllCreativePostsQuery({
         page,
         limit: PAGE_LIMIT,
-        search: debouncedSearch,
+        // search: debouncedSearch,
         isPublic: "all"
     });
 
     const [deleteCreativePost] = useDeleteCreativePostMutation();
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
-        // Simple debounce logic could be improved with a custom hook
-        setTimeout(() => {
-            setDebouncedSearch(e.target.value);
-            setPage(1);
-        }, 500);
-    };
+    // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setSearch(e.target.value);
+    //     // Simple debounce logic could be improved with a custom hook
+    //     setTimeout(() => {
+    //         setDebouncedSearch(e.target.value);
+    //         setPage(1);
+    //     }, 500);
+    // };
 
     const handleDelete = async (id: string) => {
         try {
@@ -74,7 +73,7 @@ const AllCreativeDashboard = () => {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Creative Posts</h1>
+                    <h1 className="text-2xl font-bold tracking-tight">Creative Posts</h1>
                     <p className="text-muted-foreground">
                         Manage your art and craft portfolio items.
                     </p>

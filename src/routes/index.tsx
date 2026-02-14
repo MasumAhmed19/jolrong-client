@@ -18,6 +18,9 @@ import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "./ProtectedRoute";
 import ArtAndCraft from "@/pages/Art and Craft/ArtAndCraft";
 import CreativeModal from "@/pages/Art and Craft/CreativeModal";
+import AllSlider from "@/pages/Dashboard/Slider/allSlider/AllSlider";
+import ReorderSlider from "@/pages/Dashboard/Slider/reorderSlider/ReorderSlider";
+import CreateSlider from "@/pages/Dashboard/Slider/createSlider/CreateSlider";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +102,18 @@ const router = createBrowserRouter([
         path: "/dashboard/creative/edit/:id",
         Component: EditCreativeDashboard,
       },
+      {
+        path: "/dashboard/slider",
+        Component: AllSlider,
+      },
+      {
+        path: "/dashboard/slider/reorder",
+        Component: ReorderSlider,
+      },
+      {
+        path: "/dashboard/slider/create",
+        Component: CreateSlider,
+      }
     ],
   },
 ]);

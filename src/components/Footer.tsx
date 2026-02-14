@@ -1,13 +1,12 @@
 
 
 import ContainerWidth from "@/layout/ContainerWidth";
-import { 
-  InstagramIcon, 
-  LinkedinIcon, 
-  TwitterIcon, 
-  MapPin, 
-  Mail, 
-  Phone, 
+import {
+  InstagramIcon,
+  LinkedinIcon,
+  MapPin,
+  Mail,
+  Phone,
   Facebook
 } from "lucide-react";
 import Logo from "./Shared/Logo";
@@ -31,12 +30,12 @@ const Footer = () => {
       <ContainerWidth className="bg-[#f6f6f6] rounded-[40px] px-6 md:px-10 pt-16 pb-8 text-[#4A4A4A]">
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-          
+
           {/* Column 1: Brand & Bio */}
           <div className="space-y-6">
             <Logo />
             <p className="text-sm leading-relaxed max-w-xs">
-              Excellence in design and execution since 1998. 
+              Excellence in design and execution since 1998.
               Creating timeless spaces that define contemporary living.
             </p>
             <div className="flex items-center gap-4">

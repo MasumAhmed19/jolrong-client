@@ -66,6 +66,24 @@ const data = {
       ]
     },
     {
+      title: "Slider",
+      url: "#",
+      items: [
+        {
+          title: "All Slider",
+          url: "/dashboard/slider",
+        },
+        {
+          title: "Create Slider",
+          url: "/dashboard/slider/create",
+        },
+        {
+          title: "Reorder Slider",
+          url: "/dashboard/slider/reorder",
+        },
+      ]
+    },
+    {
       title: "Quick Link",
       url: "#",
       items: [

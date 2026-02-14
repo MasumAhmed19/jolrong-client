@@ -41,8 +41,7 @@ const ArtAndCraft = () => {
       <div className="md:py-[40px] ">
         <HeadSecitonv2
           title="Art & Craft"
-          description="Ready to transform your space? We'd love to hear about your project and discuss how 
-              we can bring your architectural vision to life.."
+          description="This section showcases a curated collection of wall decore item and framed artworks, thoughtfully displayed within an architectural farm setting. Blending creativity with structure, each piece reflects craftsmanship, texture, and design harmony—adding character and artistic depth to the surrounding architecture."
         />
       </div>
 
