@@ -17,6 +17,7 @@ import SingleProject from "@/pages/Projects/SingleProject";
 import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "./ProtectedRoute";
 import ArtAndCraft from "@/pages/Art and Craft/ArtAndCraft";
+import CreativeModal from "@/pages/Art and Craft/CreativeModal";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,12 @@ const router = createBrowserRouter([
       {
         path: "/art-and-craft",
         Component: ArtAndCraft,
+        children: [
+          {
+            path: ":slug",
+            Component: CreativeModal,
+          }
+        ]
       },
       {
         path: "/projects/:slug",

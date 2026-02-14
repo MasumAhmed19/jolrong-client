@@ -177,6 +177,7 @@ export interface ICreativeQueryParams {
   page?: number;
   limit?: number;
   search?: string;
+  isPublic?: string;
 }
 
 export interface ICreativeResponse {

@@ -37,6 +37,7 @@ const AllCreativeDashboard = () => {
         page,
         limit: PAGE_LIMIT,
         search: debouncedSearch,
+        isPublic: "all"
     });
 
     const [deleteCreativePost] = useDeleteCreativePostMutation();

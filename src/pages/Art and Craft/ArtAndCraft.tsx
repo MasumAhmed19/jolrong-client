@@ -7,6 +7,7 @@ import FeaturedCardSkeleton from "@/components/Modules/Projects/FeaturedCardSkel
 import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
 import Copy from "@/components/copy/Copy";
 import { Filter } from "lucide-react";
+import { Outlet } from "react-router";
 
 const PAGE_LIMIT = 10;
 
@@ -86,6 +87,7 @@ const ArtAndCraft = () => {
           />
         </div>
       )}
+      <Outlet />
     </ContainerWidth>
   );
 };
