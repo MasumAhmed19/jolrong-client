@@ -50,7 +50,7 @@ const ArtAndCraft = () => {
       {!isLoading && creativeData?.data && (
         <>
           {creativeData.data.length > 0 ? (
-            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-5 space-y-4">
               {creativeData.data.map((creative) => (
                 <div key={creative._id} className="break-inside-avoid mb-5">
                   <CreativeCard creative={creative} />
@@ -77,7 +77,7 @@ const ArtAndCraft = () => {
 
       {/* Pagination */}
       {!isLoading && creativeData?.data && creativeData.data.length > 0 && (
-        <div className=" mb-20">
+        <div className="pt-12 pb-40">
           <PaginationModule
             page={page}
             totalPages={totalPages}
