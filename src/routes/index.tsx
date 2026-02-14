@@ -21,6 +21,9 @@ import CreativeModal from "@/pages/Art and Craft/CreativeModal";
 import AllSlider from "@/pages/Dashboard/Slider/allSlider/AllSlider";
 import ReorderSlider from "@/pages/Dashboard/Slider/reorderSlider/ReorderSlider";
 import CreateSlider from "@/pages/Dashboard/Slider/createSlider/CreateSlider";
+import Profile from "@/pages/Dashboard/Profile/Profile";
+import UpdateProfile from "@/pages/Dashboard/Profile/UpdateProfile";
+import ChangePassword from "@/pages/Dashboard/Profile/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -113,6 +116,17 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/slider/create",
         Component: CreateSlider,
+      }, {
+        path: "/dashboard/profile",
+        element: <Profile />
+      },
+      {
+        path: "/dashboard/profile/edit",
+        element: <UpdateProfile />
+      },
+      {
+        path: "/dashboard/change-password",
+        element: <ChangePassword />
       }
     ],
   },

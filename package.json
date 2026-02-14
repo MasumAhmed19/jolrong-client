@@ -28,6 +28,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@reduxjs/toolkit": "^2.8.2",
     "@studio-freight/lenis": "^1.0.42",
+    "@tabler/icons-react": "^3.36.1",
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.13.1",
     "class-variance-authority": "^0.7.1",

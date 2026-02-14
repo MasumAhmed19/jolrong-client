@@ -8,7 +8,7 @@ import ScrollToTop from "./lib/ScrollToTop";
 import Header2 from "./components/Header2";
 import Header3 from "./components/Header3";
 import WhatsAppFloat from "./components/WhatsAppFloat";
-import Preloader2 from "./components/Preloader2";
+// import Preloader2 from "./components/Preloader2";
 import { useGetActiveSlidersQuery } from "./redux/api/slider/slider.api";
 
 
