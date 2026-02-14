@@ -6,7 +6,7 @@ import BaseSection from "@/layout/BaseSection";
 
 const ProjectsSection = () => {
     const [projects] = useState<IProject[]>(portfolioData.projects);
-    console.log(projects)
+    // console.log(projects)
   return (
     <BaseSection>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 ">

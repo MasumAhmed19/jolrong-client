@@ -52,6 +52,20 @@ const data = {
       ],
     },
     {
+      title: "Art & Craft",
+      url: "#",
+      items: [
+        {
+          title: "All Posts",
+          url: "/dashboard/creative",
+        },
+        {
+          title: "Create Post",
+          url: "/dashboard/creative/create",
+        },
+      ]
+    },
+    {
       title: "Quick Link",
       url: "#",
       items: [
@@ -80,12 +94,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useUserInfoQuery({});
   const navigate = useNavigate();
   const user = userData?.data;
-  console.log(user);
+  // console.log(user);
   const [logout, { isLoading: logoutLoading }] = useLogoutMutation();
   const dispatch = useAppDispatch();
 
 
-    const handleLogout = async () => {
+  const handleLogout = async () => {
     try {
       await logout(undefined).unwrap();
       // Reset API state to clear all cached data

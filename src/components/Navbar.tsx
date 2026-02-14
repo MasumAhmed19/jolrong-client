@@ -8,6 +8,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 const navMenuItems = [
   { title: "Home", path: "/" },
   { title: "Projects", path: "/projects" },
+  { title: "Art & Craft", path: "/art-and-craft" },
   { title: "About", path: "/about" },
   { title: "Contact", path: "/contact" },
 ];

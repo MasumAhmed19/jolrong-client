@@ -149,6 +149,7 @@ export const imageVariants : Variants = {
   },
 }
 
+
 export const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -158,3 +159,34 @@ export const containerVariants = {
     },
   },
 };
+
+export interface ICreative {
+  _id: string;
+  title: string;
+  content: string;
+  image: string;
+  tags: string[];
+  isFeatured: boolean;
+  isPublic: boolean;
+  createdAt: string;
+  updatedAt: string;
+  slug?: string;
+}
+
+export interface ICreativeQueryParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+}
+
+export interface ICreativeResponse {
+  success: boolean;
+  message: string;
+  data: ICreative[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}

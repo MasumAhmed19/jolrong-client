@@ -6,6 +6,6 @@ export const baseApi = createApi({
     // baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:9000/api/v1', credentials: 'include'}),
     // credentials include krle axios er moto cookie save hve
     baseQuery: axiosBaseQuery(),
-    tagTypes: ["PROJECTS", "GALLERY", "ADMIN"],
+    tagTypes: ["PROJECTS", "GALLERY", "ADMIN", "CREATIVE"],
     endpoints:()=>({})
 })

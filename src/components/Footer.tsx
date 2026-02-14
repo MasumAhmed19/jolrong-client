@@ -7,7 +7,8 @@ import {
   TwitterIcon, 
   MapPin, 
   Mail, 
-  Phone 
+  Phone, 
+  Facebook
 } from "lucide-react";
 import Logo from "./Shared/Logo";
 import { Link } from "react-router";
@@ -21,7 +22,7 @@ const Footer = () => {
   const menuItems: MenuItem[] = [
     { label: "Home", path: "/" },
     { label: "Projects", path: "/projects" },
-    { label: "Services", path: "/services" },
+    { label: "Art & Craft", path: "/art-and-craft" },
     { label: "About Us", path: "/about" },
   ];
 
@@ -41,7 +42,7 @@ const Footer = () => {
             <div className="flex items-center gap-4">
               <Link to="#" className="hover:text-primary transition-colors"><LinkedinIcon size={20} /></Link>
               <Link to="#" className="hover:text-primary transition-colors"><InstagramIcon size={20} /></Link>
-              <Link to="#" className="hover:text-primary transition-colors"><TwitterIcon size={20} /></Link>
+              <Link to="#" className="hover:text-primary transition-colors"><Facebook size={20} /></Link>
             </div>
           </div>
 

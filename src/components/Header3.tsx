@@ -5,6 +5,7 @@ import { useUserInfoQuery } from "@/redux/api/auth/auth.api";
 const baseNavLinks = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
+  { label: "Art & Craft", href: "/art-and-craft" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

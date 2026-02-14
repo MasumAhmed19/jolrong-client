@@ -48,7 +48,7 @@ const AllProjectDashboard = () => {
 
 
   const { data: projectData, isLoading } = useAllProjectsQuery(queryParams);
-  console.log(queryParams)
+  // console.log(queryParams)
   const meta = projectData?.meta;
   const totalPages = meta?.totalPages ?? 1;
 

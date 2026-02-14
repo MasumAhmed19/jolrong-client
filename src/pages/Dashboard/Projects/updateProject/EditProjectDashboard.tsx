@@ -10,7 +10,7 @@ const EditProjectDashboard = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: projectData, isLoading } = useProjectBySlugQuery(slug!);
   const [updateProject, { isLoading: isUpdating }] = useUpdateProjectMutation();
-  console.log(projectData?.data._id);
+  // console.log(projectData?.data._id);
 
   const handleUpdate = async (values: any) => {
     try {
