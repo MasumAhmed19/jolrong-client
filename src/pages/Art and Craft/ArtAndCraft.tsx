@@ -8,11 +8,18 @@ import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
 import Copy from "@/components/copy/Copy";
 import { Filter } from "lucide-react";
 import { Outlet } from "react-router";
+import SEOHead from "@/components/SEOHead";
+import { generateBreadcrumbSchema } from "@/lib/seo";
 
 const PAGE_LIMIT = 10;
 
 const ArtAndCraft = () => {
   const [page, setPage] = useState<number>(1);
+
+  const breadcrumb = [
+    { name: "Home", url: "https://jolrongarchitects.com" },
+    { name: "Art & Craft", url: "https://jolrongarchitects.com/art-and-craft" },
+  ];
 
   const queryParams = {
     page,
@@ -37,7 +44,17 @@ const ArtAndCraft = () => {
   }, [page, totalPages]);
 
   return (
-    <ContainerWidth className="min-h-screen bg-white mb-60 md:mb-25 md:px-0 px-6">
+    <>
+      <SEOHead
+        title="Art & Craft - Creative Works | Jolrong"
+        description="Discover our creative works including wall decor, framed artworks, graphics, and artistic concepts. Explore unique designs blending creativity with architecture."
+        canonical="https://jolrongarchitects.com/art-and-craft"
+        ogImage="https://jolrongarchitects.com/og-image-creative.png"
+        ogType="website"
+        keywords={["Art", "Craft", "Creative", "Graphics", "Animation", "Design", "Wall Decor"]}
+        structuredData={generateBreadcrumbSchema(breadcrumb)}
+      />
+      <ContainerWidth className="min-h-screen bg-white mb-60 md:mb-65 md:px-0 px-6">
       <div className="md:py-[40px] ">
         <HeadSecitonv2
           title="Art & Craft"
@@ -88,6 +105,7 @@ const ArtAndCraft = () => {
       )}
       <Outlet />
     </ContainerWidth>
+    </>
   );
 };
 

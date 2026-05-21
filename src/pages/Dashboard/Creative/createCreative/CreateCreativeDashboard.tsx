@@ -2,16 +2,14 @@ import { useNavigate } from "react-router";
 import CreativeForm from "@/components/Modules/Creative/CreativeForm";
 import { useCreateCreativePostMutation } from "@/redux/api/creative/creative.api";
 import { toast } from "sonner";
+import type { ICreateCreativePayload, IApiError } from "@/types";
 
 const CreateCreativeDashboard = () => {
     const navigate = useNavigate();
     const [createPost, { isLoading }] = useCreateCreativePostMutation();
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: ICreateCreativePayload) => {
         try {
-
-
-
             // Manually construct FormData to avoid duplication issues and ensure correct types
             const formData = new FormData();
             formData.append("title", values.title);
@@ -39,9 +37,9 @@ const CreateCreativeDashboard = () => {
 
             toast.success("Post created successfully");
             navigate("/dashboard/creative");
-        } catch (err: any) {
-            // console.error(err);
-            toast.error(err?.data?.message || "Failed to create post");
+        } catch (err) {
+            const error = err as IApiError;
+            toast.error(error?.data?.message || "Failed to create post");
         }
     };
 

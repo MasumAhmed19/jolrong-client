@@ -7,15 +7,18 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
 import { ThemeProvider } from "./provider/theme-provider.tsx";
 import { Toaster } from "sonner";
+import { HelmetProvider } from "react-helmet-async";
 
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <Provider store={store}>
-          <RouterProvider router={router} />
-          <Toaster />
-      </Provider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+        <Provider store={store}>
+            <RouterProvider router={router} />
+            <Toaster />
+        </Provider>
+      </ThemeProvider>
+    </HelmetProvider>
   </StrictMode>
 );

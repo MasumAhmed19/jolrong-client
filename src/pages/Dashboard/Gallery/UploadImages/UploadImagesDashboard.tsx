@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Loader2, ImagePlus, Info, X } from "lucide-react";
 import { toast } from "sonner";
 import { useUploadImagesMutation } from "@/redux/api/gallery/gallery.api";
+import type { IGalleryImage, IApiError } from "@/types";
 
-//this is added
 interface UploadImagesDashboardProps {
   onUpload?: (urls: string[]) => void;
 }
@@ -80,13 +80,13 @@ const UploadImagesDashboard = (props: UploadImagesDashboardProps) => {
       const response = await uploadImages(formData).unwrap();
       toast.success(response.message || "Images uploaded successfully!");
     
-      //this will added
       if (props.onUpload) {
-        const uploadedUrls = response.data.map((img: any) => img.url);
+        const uploadedUrls = response.data.map((img: IGalleryImage) => img.url);
         props.onUpload(uploadedUrls);
       }
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Upload failed");
+    } catch (err) {
+      const error = err as IApiError;
+      toast.error(error?.data?.message || "Upload failed");
     }
   };
 

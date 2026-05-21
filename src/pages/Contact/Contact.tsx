@@ -13,6 +13,8 @@ import {
 import { Phone, Mail } from "lucide-react";
 import HeadSecitonv2 from "@/components/Modules/HeadSectionv2";
 import ContainerWidth from "@/layout/ContainerWidth";
+import SEOHead from "@/components/SEOHead";
+import { generateBreadcrumbSchema } from "@/lib/seo";
 
 export default function Contact() {
   const contactInfo = [
@@ -28,8 +30,23 @@ export default function Contact() {
     },
   ];
 
+  const breadcrumb = [
+    { name: "Home", url: "https://jolrongarchitects.com" },
+    { name: "Contact", url: "https://jolrongarchitects.com/contact" },
+  ];
+
   return (
-    <ContainerWidth className="min-h-screen bg-white mb-60 md:mb-70 md:px-0 px-6">
+    <>
+      <SEOHead
+        title="Contact Jolrong - Get In Touch with Our Architects"
+        description="Contact our architecture team in Dhaka for your design and visualization needs. Reach out via WhatsApp, email, or visit our office. We're ready to discuss your project."
+        canonical="https://jolrongarchitects.com/contact"
+        ogImage="https://jolrongarchitects.com/og-image-contact.png"
+        ogType="website"
+        keywords={["Contact", "Get In Touch", "Architecture", "Design Services", "Dhaka"]}
+        structuredData={generateBreadcrumbSchema(breadcrumb)}
+      />
+      <ContainerWidth className="min-h-screen bg-white mb-60 md:mb-70 md:px-0 px-6">
       <div className="md:py-[40px] ">
         <HeadSecitonv2
           title="Contact Us"
@@ -273,5 +290,6 @@ export default function Contact() {
         </div>
       </section>
     </ContainerWidth>
+    </>
   );
 }

@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
             <Logo />
             <p className="text-sm leading-relaxed max-w-xs">
-              Excellence in design and execution since 1998.
+              Excellence in design and execution since 2022.
               Creating timeless spaces that define contemporary living.
             </p>
           </div>

@@ -1,5 +1,15 @@
 import type { Variants } from "framer-motion";
 
+// API Error Response Type
+export interface IApiError {
+  data?: {
+    message?: string;
+    error?: string;
+  };
+  status?: number;
+  message?: string;
+}
+
 export type IAdminRegister = {
     name: string;
     email: string;
@@ -171,6 +181,24 @@ export interface ICreative {
   createdAt: string;
   updatedAt: string;
   slug?: string;
+}
+
+export interface ICreateCreativePayload {
+  title: string;
+  content?: string;
+  image: string;
+  tags?: string[];
+  isFeatured?: boolean;
+  isPublic?: boolean;
+}
+
+export interface IUpdateCreativePayload {
+  title?: string;
+  content?: string;
+  image?: string;
+  tags?: string[];
+  isFeatured?: boolean;
+  isPublic?: boolean;
 }
 
 export interface ICreativeQueryParams {

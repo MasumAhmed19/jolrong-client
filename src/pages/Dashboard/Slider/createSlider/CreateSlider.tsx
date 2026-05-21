@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowLeft, X } from "lucide-react";
 import { Link } from "react-router";
 import ImageSelectorModal from "@/pages/Dashboard/Projects/createProject/ImageSelectorModal";
+import type { IApiError } from "@/types";
 
 const CreateSlider = () => {
     const navigate = useNavigate();
@@ -39,9 +40,9 @@ const CreateSlider = () => {
 
             toast.success("Slider created successfully");
             navigate("/dashboard/slider");
-        } catch (err: any) {
-            // console.error(err);
-            toast.error(err?.data?.message || "Failed to create slider");
+        } catch (err) {
+            const error = err as IApiError;
+            toast.error(error?.data?.message || "Failed to create slider");
         }
     };
 

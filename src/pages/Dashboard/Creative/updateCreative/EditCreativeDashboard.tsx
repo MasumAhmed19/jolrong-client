@@ -2,9 +2,10 @@ import { useNavigate, useParams } from "react-router";
 import CreativeForm from "@/components/Modules/Creative/CreativeForm";
 import { useCreativePostByIdentifierQuery, useUpdateCreativePostMutation } from "@/redux/api/creative/creative.api";
 import { toast } from "sonner";
+import type { IUpdateCreativePayload, IApiError } from "@/types";
 
 const EditCreativeDashboard = () => {
-    const { id } = useParams(); // Note: route uses :id or :slug, let's assume API handles ID
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const { data: postData, isLoading: isFetching } = useCreativePostByIdentifierQuery(id as string, {
@@ -13,12 +14,12 @@ const EditCreativeDashboard = () => {
 
     const [updatePost, { isLoading: isUpdating }] = useUpdateCreativePostMutation();
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: IUpdateCreativePayload) => {
         try {
             const formData = new FormData();
-            formData.append("title", values.title);
+            formData.append("title", values.title || "");
             formData.append("content", values.content || "");
-            formData.append("image", values.image);
+            formData.append("image", values.image || "");
 
             if (values.isFeatured !== undefined) formData.append("isFeatured", String(values.isFeatured));
             if (values.isPublic !== undefined) formData.append("isPublic", String(values.isPublic));
@@ -30,9 +31,9 @@ const EditCreativeDashboard = () => {
             await updatePost({ id: id as string, data: formData }).unwrap();
             toast.success("Post updated successfully");
             navigate("/dashboard/creative");
-        } catch (err: any) {
-            // console.error(err);
-            toast.error(err?.data?.message || "Failed to update post");
+        } catch (err) {
+            const error = err as IApiError;
+            toast.error(error?.data?.message || "Failed to update post");
         }
     };
 
