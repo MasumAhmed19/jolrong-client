@@ -76,7 +76,7 @@ const ChangePassword = () => {
                 confirmPassword: "",
             });
         } catch (err: any) {
-            console.error(err);
+            // console.error(err);
             toast.error(err?.data?.message || "Failed to change password");
         }
     };

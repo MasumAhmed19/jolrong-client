@@ -76,7 +76,7 @@ const ArtAndCraft = () => {
       )}
 
       {/* Pagination */}
-      {!isLoading && creativeData?.data && creativeData.data.length > 0 && (
+      {!isLoading && creativeData?.data && creativeData.data.length > 0 && totalPages > 1 && (
         <div className="pt-12 pb-40">
           <PaginationModule
             page={page}

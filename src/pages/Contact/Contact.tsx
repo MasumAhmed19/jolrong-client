@@ -19,12 +19,12 @@ export default function Contact() {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "WhatsApp",
-      details: ["+1 (555) 123-4567"],
+      details: ["+880 1918167893", "+880 1660035644"],
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      details: ["hello@jolrong.com"],
+      details: ["jolrongarchitects@gmail.com"],
     },
   ];
 
@@ -178,34 +178,46 @@ export default function Contact() {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium mb-3 text-gray-900">
-                    What is your design process?
+                    How much will my project cost?
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Our process begins with understanding your vision, followed
-                    by concept development, design refinement, and construction
-                    documentation.
+                    The project cost depends on the scope, size, design requirements, and overall details of the project. Kindly send us a message on WhatsApp so we can discuss your requirements in detail and provide a proper estimate.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-medium mb-3 text-gray-900">
-                    How long does a typical project take?
+                    What will be the timeline for my project?
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Project timelines vary based on scope and complexity.
-                    Residential projects typically take 6-12 months, while
-                    commercial projects may take 12-24 months.
+                    The timeline depends on the project size, complexity, and specific requirements. After understanding your needs, we can provide an estimated project schedule.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-medium mb-3 text-gray-900">
-                    Do you work on projects outside New York?
+                    How can I start a project with your firm?
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Yes, we work on projects nationwide and internationally.
-                    We're happy to discuss travel arrangements for projects
-                    outside our local area.
+                    You can start by contacting us through WhatsApp or phone and sharing your project details. We will discuss your ideas, requirements, and the next steps.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3 text-gray-900">
+                    What types of architectural services do you provide?
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    We provide architectural and interior design services, including residential, commercial, and customized design solutions tailored to client needs.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3 text-gray-900">
+                    Do you provide interior design services as well?
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Yes, we offer interior design services to create functional, modern, and aesthetically pleasing spaces based on your preferences and requirements.
                   </p>
                 </div>
               </div>
@@ -213,34 +225,46 @@ export default function Contact() {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium mb-3 text-gray-900">
-                    What services do you offer?
+                    Can I customize the design according to my preferences?
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    We offer comprehensive architectural services including
-                    design consultation, space planning, construction
-                    documentation, and project management.
+                    Absolutely. Every project is designed according to the client's preferences, lifestyle, functionality, and vision.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-medium mb-3 text-gray-900">
-                    How do you determine project costs?
+                    Do you work on both residential and commercial projects?
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Project costs are determined based on scope, complexity,
-                    timeline, and specific requirements. We provide detailed
-                    proposals after our initial consultation.
+                    Yes, we work on both residential and commercial projects depending on the project scope and requirements.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-medium mb-3 text-gray-900">
-                    Do you handle permits and approvals?
+                    Do you offer consultation before starting the project?
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Yes, we assist with all necessary permits, zoning approvals,
-                    and regulatory compliance throughout the design and
-                    construction process.
+                    Yes, we provide consultations to understand your requirements, goals, and expectations before starting the design process.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3 text-gray-900">
+                    Where is your office located?
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Our office is located in Khilkhet, Dhaka – 1229, Bangladesh.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3 text-gray-900">
+                    How can I contact your team?
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    You can contact us directly through WhatsApp, phone, or by visiting our office in Khilkhet, Dhaka – 1229.
                   </p>
                 </div>
               </div>

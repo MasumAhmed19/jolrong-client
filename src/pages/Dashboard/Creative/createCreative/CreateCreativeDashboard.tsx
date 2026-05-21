@@ -40,7 +40,7 @@ const CreateCreativeDashboard = () => {
             toast.success("Post created successfully");
             navigate("/dashboard/creative");
         } catch (err: any) {
-            console.error(err);
+            // console.error(err);
             toast.error(err?.data?.message || "Failed to create post");
         }
     };

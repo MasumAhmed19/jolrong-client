@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import BaseSection from "@/layout/BaseSection";
 import { useAllProjectsQuery } from "@/redux/api/projects/projects.api";
 import { Button } from "@/components/ui/button";
@@ -20,16 +21,95 @@ import Copy from "@/components/copy/Copy";
 const PAGE_LIMIT = 10;
 
 const ProjectsSection2 = () => {
-  const [selectedType, setSelectedType] = useState<ProjectType | "ALL">("ALL");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedType, setSelectedType] = useState<ProjectType | "ALL">(
+    (searchParams.get("type") as ProjectType) || "ALL"
+  );
   const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | "ALL">(
-    "ALL"
+    (searchParams.get("status") as ProjectStatus) || "ALL"
   );
   const [selectedWorkType, setSelectedWorkType] = useState<TypeOfWork | "ALL">(
-    "ALL"
+    (searchParams.get("workType") as TypeOfWork) || "ALL"
   );
-  const [selectedYear, setSelectedYear] = useState<string>("ALL");
+  const [selectedYear, setSelectedYear] = useState<string>(
+    searchParams.get("year") || "ALL"
+  );
   const [showFilters, setShowFilters] = useState(false);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(
+    parseInt(searchParams.get("page") || "1")
+  );
+
+  // Update URL whenever filters change
+  const updateUrlParams = (
+    type: ProjectType | "ALL",
+    status: ProjectStatus | "ALL",
+    workType: TypeOfWork | "ALL",
+    year: string,
+    currentPage: number
+  ) => {
+    const params = new URLSearchParams();
+
+    if (type !== "ALL") params.set("type", type);
+    if (status !== "ALL") params.set("status", status);
+    if (workType !== "ALL") params.set("workType", workType);
+    if (year !== "ALL") params.set("year", year);
+    if (currentPage > 1) params.set("page", currentPage.toString());
+
+    setSearchParams(params);
+  };
+
+  // Handle Type Filter Change
+  const handleTypeChange = (value: ProjectType | "ALL") => {
+    setSelectedType(value);
+    setSelectedStatus("ALL");
+    setSelectedWorkType("ALL");
+    setSelectedYear("ALL");
+    setPage(1);
+    updateUrlParams(value, "ALL", "ALL", "ALL", 1);
+  };
+
+  // Handle Status Filter Change
+  const handleStatusChange = (value: ProjectStatus | "ALL") => {
+    setSelectedStatus(value);
+    setPage(1);
+    updateUrlParams(selectedType, value, selectedWorkType, selectedYear, 1);
+  };
+
+  // Handle Work Type Filter Change
+  const handleWorkTypeChange = (value: TypeOfWork | "ALL") => {
+    setSelectedWorkType(value);
+    setPage(1);
+    updateUrlParams(selectedType, selectedStatus, value, selectedYear, 1);
+  };
+
+  // Handle Year Filter Change
+  const handleYearChange = (value: string) => {
+    setSelectedYear(value);
+    setPage(1);
+    updateUrlParams(selectedType, selectedStatus, selectedWorkType, value, 1);
+  };
+
+  // Sync state with URL params when submenu is clicked
+  useEffect(() => {
+    const urlType = searchParams.get("type") as ProjectType | null;
+    const urlStatus = searchParams.get("status") as ProjectStatus | null;
+    const urlWorkType = searchParams.get("workType") as TypeOfWork | null;
+    const urlYear = searchParams.get("year");
+    const urlPage = searchParams.get("page");
+
+    setSelectedType(urlType || "ALL");
+    setSelectedStatus(urlStatus || "ALL");
+    setSelectedWorkType(urlWorkType || "ALL");
+    setSelectedYear(urlYear || "ALL");
+    setPage(parseInt(urlPage || "1"));
+  }, [searchParams]);
+
+  // Update page in URL when it changes
+  const handlePageChange = (value: React.SetStateAction<number>) => {
+    const newPage = typeof value === "function" ? value(page) : value;
+    setPage(newPage);
+    updateUrlParams(selectedType, selectedStatus, selectedWorkType, selectedYear, newPage);
+  };
 
   // Build query params based on filters
   const queryParams = {
@@ -65,6 +145,8 @@ const ProjectsSection2 = () => {
     setSelectedStatus("ALL");
     setSelectedWorkType("ALL");
     setSelectedYear("ALL");
+    setPage(1);
+    updateUrlParams("ALL", "ALL", "ALL", "ALL", 1);
   };
 
   const hasActiveFilters =
@@ -140,9 +222,7 @@ const ProjectsSection2 = () => {
           <div className="w-full md:w-auto">
             <Select
               value={selectedType}
-              onValueChange={(value) =>
-                setSelectedType(value as ProjectType | "ALL")
-              }
+              onValueChange={handleTypeChange}
             >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Project Type" />
@@ -164,9 +244,7 @@ const ProjectsSection2 = () => {
           <div className="w-full md:w-auto">
             <Select
               value={selectedWorkType}
-              onValueChange={(value) =>
-                setSelectedWorkType(value as TypeOfWork | "ALL")
-              }
+              onValueChange={handleWorkTypeChange}
             >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Type of work" />
@@ -188,9 +266,7 @@ const ProjectsSection2 = () => {
           <div className="w-full md:w-auto">
             <Select
               value={selectedStatus}
-              onValueChange={(value) =>
-                setSelectedStatus(value as ProjectStatus | "ALL")
-              }
+              onValueChange={handleStatusChange}
             >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Project Status" />
@@ -212,7 +288,7 @@ const ProjectsSection2 = () => {
           <div className="w-full md:w-auto">
             <Select
               value={selectedYear}
-              onValueChange={(value) => setSelectedYear(value)}
+              onValueChange={handleYearChange}
             >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Year" />
@@ -311,12 +387,14 @@ const ProjectsSection2 = () => {
       )}
 
       <div className="pt-10 mb-15">
-        <PaginationModule
-          page={page}
-          totalPages={totalPages}
-          pageNumbers={pageNumbers}
-          setPage={setPage}
-        />
+        {totalPages > 1 && (
+          <PaginationModule
+            page={page}
+            totalPages={totalPages}
+            pageNumbers={pageNumbers}
+            setPage={handlePageChange}
+          />
+        )}
       </div>
     </BaseSection>
   );

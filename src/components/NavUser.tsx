@@ -41,8 +41,8 @@ export function NavUser({
 }) {
     const { isMobile } = useSidebar()
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
     const [logout, { isLoading: logoutLoading }] = useLogoutMutation()
+    const dispatch = useAppDispatch()
 
     const handleLogout = async () => {
         try {
@@ -56,6 +56,7 @@ export function NavUser({
             toast.error("Failed to logout")
         }
     }
+
 
     const getInitials = (name: string) => {
         return name

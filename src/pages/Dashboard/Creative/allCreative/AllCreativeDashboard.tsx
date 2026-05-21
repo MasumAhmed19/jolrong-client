@@ -55,7 +55,7 @@ const AllCreativeDashboard = () => {
             await deleteCreativePost(id).unwrap();
             toast.success("Post deleted successfully");
         } catch (err) {
-            console.error(err)
+            // console.error(err)
             toast.error("Failed to delete post");
         }
     };

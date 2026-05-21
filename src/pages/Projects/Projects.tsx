@@ -8,7 +8,7 @@ const Projects = () => {
       <div className="md:py-[40px]">
         <HeadSecitonv2
           title="Our projects"
-          description="Ready to transform your space? We'd love to hear about your project and discuss how we can
+          description="Ready to transform your space? We'd excited to hear about your project and discuss how we can
 bring your architectural vision to life."
         />
       </div>

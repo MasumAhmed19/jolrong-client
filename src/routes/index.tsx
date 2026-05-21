@@ -24,6 +24,7 @@ import CreateSlider from "@/pages/Dashboard/Slider/createSlider/CreateSlider";
 import Profile from "@/pages/Dashboard/Profile/Profile";
 import UpdateProfile from "@/pages/Dashboard/Profile/UpdateProfile";
 import ChangePassword from "@/pages/Dashboard/Profile/ChangePassword";
+import NotFound from "@/pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
         element: <ChangePassword />
       }
     ],
+  },
+  {
+    path: "*",
+    Component: NotFound,
   },
 ]);
 

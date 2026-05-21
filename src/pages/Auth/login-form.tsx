@@ -40,7 +40,7 @@ const LoginForm = () => {
       navigate(`/dashboard`);
       toast.success("Login Successfull");
     } catch (err: any) {
-      console.error(err);
+      // console.error(err);
       toast.error(err.data.message);
     }
   }

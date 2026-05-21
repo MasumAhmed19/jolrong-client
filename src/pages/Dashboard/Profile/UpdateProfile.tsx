@@ -95,7 +95,7 @@ const UpdateProfile = () => {
             }).unwrap();
             toast.success("Profile updated successfully");
         } catch (err: any) {
-            console.error(err);
+            // console.error(err);
             toast.error(err?.data?.message || "Failed to update profile");
         }
     };

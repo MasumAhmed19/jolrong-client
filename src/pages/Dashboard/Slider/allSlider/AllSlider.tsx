@@ -34,7 +34,7 @@ const AllSlider = () => {
             await deleteSlider(id).unwrap();
             toast.success("Slider deleted successfully");
         } catch (err) {
-            console.error(err);
+            // console.error(err);
             toast.error("Failed to delete slider");
         }
     };

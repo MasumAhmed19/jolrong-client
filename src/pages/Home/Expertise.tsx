@@ -9,26 +9,25 @@ const expertiseData = [
     description:
       "From initial concept sketches to detailed construction drawings, we manage the full design lifecycle.",
     icon: Building2,
-  },
-  {
+  },{
     id: 2,
-    title: "Urban Planning",
-    description:
-      "Developing sustainable, resilient, and human-centered plans for future cities and communities.",
-    icon: Map,
-  },
-  {
-    id: 3,
     title: "Interior Design",
     description:
       "Crafting functional and aesthetic internal spaces that complement the building's architectural vision.",
     icon: Home,
   },
   {
-    id: 4,
-    title: "Project Management",
+    id: 3,
+    title: "Landscape Design",
     description:
-      "Overseeing construction and coordinating teams to ensure projects are delivered on time and within budget.",
+      "Creating beautiful outdoor spaces that enhance the natural environment and improve overall user experience.",
+    icon: Map,
+  },
+  {
+    id: 4,
+    title: "Art & Craft",
+    description:
+      "Integrating artistic elements and craftsmanship into our projects to add unique character and cultural significance.",
     icon: ClipboardList,
   },
 ];

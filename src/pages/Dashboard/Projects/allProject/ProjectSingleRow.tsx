@@ -64,8 +64,9 @@ const ProjectSingleRow: React.FC<IProjectCardProps> = ({
           : "Project marked as featured!"
       );
       setOpenFeatureDialog(false);
-    } catch {
-      toast.error("Failed to update project. Please try again.");
+    } catch(error:any) {
+      const message = error?.data?.message || "Failed to update project. Please try again.";
+      toast.error(message);
     }
   };
 

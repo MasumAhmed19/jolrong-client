@@ -31,7 +31,7 @@ const EditCreativeDashboard = () => {
             toast.success("Post updated successfully");
             navigate("/dashboard/creative");
         } catch (err: any) {
-            console.error(err);
+            // console.error(err);
             toast.error(err?.data?.message || "Failed to update post");
         }
     };

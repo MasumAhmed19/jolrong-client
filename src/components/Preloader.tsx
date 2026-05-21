@@ -31,7 +31,7 @@ const Preloader = () => {
                             ease: "easeOut",
                         },
                     }}
-                    className="w-48 md:w-64"
+                    className="w-48 md:w-60"
                 >
                     <img
                         src={MainLogo}
