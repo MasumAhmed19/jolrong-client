@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ interface UploadImagesDashboardProps {
 const UploadImagesDashboard = (props: UploadImagesDashboardProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadImages, { isLoading }] = useUploadImagesMutation();
 
   // Handle file selection
@@ -79,6 +80,9 @@ const UploadImagesDashboard = (props: UploadImagesDashboardProps) => {
     try {
       const response = await uploadImages(formData).unwrap();
       toast.success(response.message || "Images uploaded successfully!");
+      setSelectedFiles([]);
+      setPreviewUrls([]);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     
       if (props.onUpload) {
         const uploadedUrls = response.data.map((img: IGalleryImage) => img.url);
@@ -125,6 +129,7 @@ const UploadImagesDashboard = (props: UploadImagesDashboardProps) => {
 
           <div className="flex flex-col gap-4">
             <Input
+              ref={fileInputRef}
               type="file"
               multiple
               accept="image/jpeg,image/png,image/gif,image/webp"

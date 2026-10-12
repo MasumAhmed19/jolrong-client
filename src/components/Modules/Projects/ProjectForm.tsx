@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useEffect, useState } from "react";
 
 import {
   Form,
@@ -84,6 +85,12 @@ const ProjectForm = ({
     resolver: zodResolver(projectSchema),
     defaultValues,
   });
+  const defaultTagText = defaultValues?.tags?.join(", ") ?? "";
+  const [tagInput, setTagInput] = useState(defaultTagText);
+
+  useEffect(() => {
+    setTagInput(defaultTagText);
+  }, [defaultTagText]);
 
   return (
     <Form {...form}>
@@ -434,17 +441,16 @@ const ProjectForm = ({
               <FormControl>
                 <Input
                   placeholder="e.g. modern, minimalist"
-                  value={
-                    Array.isArray(field.value) ? field.value.join(", ") : ""
-                  }
-                  onChange={(e) =>
+                  value={tagInput}
+                  onChange={(e) => {
+                    setTagInput(e.target.value);
                     field.onChange(
                       e.target.value
                         .split(",")
                         .map((tag) => tag.trim())
                         .filter(Boolean)
-                    )
-                  }
+                    );
+                  }}
                 />
               </FormControl>
               <FormMessage />

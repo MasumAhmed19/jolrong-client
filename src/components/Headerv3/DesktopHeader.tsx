@@ -106,7 +106,7 @@ const DesktopHeader = ({ navLinks }: DesktopHeaderProps) => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.95 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 py-2"
+                      className="absolute left-0 mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 py-2 pt-3"
                     >
                       {link.submenu.map((item, index) => {
                         const isSubActive =

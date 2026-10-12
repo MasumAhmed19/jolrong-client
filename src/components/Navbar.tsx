@@ -103,7 +103,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute left-0 mt-2 w-48 bg-white/95 backdrop-blur-lg border border-white/20 rounded-lg shadow-lg z-50"
+                  className="absolute left-0 mt-0 w-48 bg-white/95 backdrop-blur-lg border border-white/20 rounded-lg shadow-lg z-50 pt-3"
                 >
                   <div className="py-2">
                     {submenu.map((item) => (

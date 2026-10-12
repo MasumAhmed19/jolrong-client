@@ -52,15 +52,14 @@ const CreativeForm = ({
         },
     });
 
-    // Local state for tags input to handle comma typing
-    const [tagInput, setTagInput] = useState("");
+    // Keep the typed text (including separators) separate from the parsed tags.
+    const defaultTagText = defaultValues?.tags?.join(", ") ?? "";
+    const [tagInput, setTagInput] = useState(defaultTagText);
 
-    // Sync local state with default values on mount or when defaultValues change
+    // Only sync when the actual default tags change, not when the parent re-renders.
     useEffect(() => {
-        if (defaultValues?.tags) {
-            setTagInput(defaultValues.tags.join(", "));
-        }
-    }, [defaultValues]);
+        setTagInput(defaultTagText);
+    }, [defaultTagText]);
 
     return (
         <Form {...form}>

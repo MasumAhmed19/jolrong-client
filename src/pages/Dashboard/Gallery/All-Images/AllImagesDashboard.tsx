@@ -21,9 +21,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Link } from "react-router";
-import { UploadIcon } from "lucide-react";
+import { Loader2, UploadIcon } from "lucide-react";
 import GalleryGrid from "@/components/Modules/Gallery/GalleryGrid";
 import PaginationModule from "@/components/Modules/Gallery/PaginationModule";
+import { toast } from "sonner";
 
 
 
@@ -31,11 +32,12 @@ const PAGE_LIMIT = 15;
 
 const AllImagesDashboard = () => {
   const [page, setPage] = useState<number>(1);
-  const { data, isLoading, isFetching, error } = useListImagesQuery({
+  const { data, isLoading, isFetching, error, refetch } = useListImagesQuery({
     page,
     limit: PAGE_LIMIT,
   });
-  const [deleteImage, { isLoading: isDeleting }] = useDeleteImageMutation();
+  const [deleteImage] = useDeleteImageMutation();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const [previewImage, setPreviewImage] = useState<IGalleryImage | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<IGalleryImage | null>(
@@ -60,12 +62,25 @@ const AllImagesDashboard = () => {
   }, [page, totalPages]);
 
   const handleDelete = async (id: string | undefined) => {
-    if (!id) return;
+    if (!id || isDeleting) return;
+    setIsDeleting(true);
     try {
       await deleteImage(id).unwrap();
-      setConfirmDelete(null);
     } catch (err) {
       console.error("Failed to delete image", err);
+      toast.error("Failed to delete image. Please try again.");
+      setIsDeleting(false);
+      return;
+    }
+
+    try {
+      await refetch().unwrap();
+    } catch (err) {
+      console.error("Failed to refresh gallery after deleting image", err);
+      toast.error("Image deleted, but the gallery could not refresh.");
+    } finally {
+      setConfirmDelete(null);
+      setIsDeleting(false);
     }
   };
 
@@ -126,9 +141,11 @@ const AllImagesDashboard = () => {
       {/* Delete Confirmation */}
       <AlertDialog
         open={!!confirmDelete}
-        onOpenChange={(open) => !open && setConfirmDelete(null)}
+        onOpenChange={(open) => !open && !isDeleting && setConfirmDelete(null)}
       >
-        <AlertDialogContent>
+        <AlertDialogContent
+          onEscapeKeyDown={(event) => isDeleting && event.preventDefault()}
+        >
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Image</AlertDialogTitle>
             <AlertDialogDescription>
@@ -136,13 +153,21 @@ const AllImagesDashboard = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => handleDelete(confirmDelete?._id)}
+              onClick={(event) => {
+                event.preventDefault();
+                void handleDelete(confirmDelete?._id);
+              }}
               disabled={isDeleting}
               className="bg-destructive cursor-pointer text-white hover:bg-destructive/90"
             >
-              {isDeleting ? "Deleting..." : "Delete"}
+              {isDeleting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                  Deleting...
+                </>
+              ) : "Delete"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
