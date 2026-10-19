@@ -16,6 +16,11 @@ import { containerVariants, imageVariants } from "@/types";
 import RelatedProjects from "./RelatedProjects";
 import InfoRow from "@/components/Modules/Projects/InfoRow";
 import ContainerWidth from "@/layout/ContainerWidth";
+import { getYouTubeId } from "@/lib/youtube";
+import {
+  HeroBackgroundVideo,
+  VideoPreview,
+} from "@/components/Modules/Projects/ProjectVideo";
 
 const SingleProject = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -49,16 +54,20 @@ const SingleProject = () => {
     year,
     gallery,
     typeofWork,
+    featuredVideo,
   } = project;
+
+  const videoId = getYouTubeId(featuredVideo);
 
   return (
     <ContainerWidth className="min-h-screen flex flex-col mt-10">
       {/* Hero Section */}
-      <div className="relative w-full h-[70vh] rounded-xl overflow-hidden">
+      <div className="relative w-full h-[73vh] rounded-xl overflow-hidden">
         <img src={image} alt={name} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-5">
+        {videoId && <HeroBackgroundVideo key={videoId} videoId={videoId} title={name} />}
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-5">
           <Copy>
-            <h1 className="text-white text-3xl md:text-5xl shadow-2xl font-bold tracking-wide">
+            <h1 className="text-white text-3xl md:text-5xl text-center font-bold tracking-wide">
               {name}
             </h1>
           </Copy>
@@ -129,13 +138,23 @@ const SingleProject = () => {
             </div>
 
             {/* Right Section - Building Image */}
-            <div
-              className="w-full h-full bg-red-400 bg-center bg-no-repeat rounded-sm"
-              style={{
-                backgroundImage: `url(${image})`,
-                backgroundSize: "cover",
-              }}
-            ></div>
+            {videoId ? (
+              <VideoPreview
+                key={videoId}
+                videoId={videoId}
+                image={image}
+                title={name}
+                className="w-full h-full min-h-[250px] sm:min-h-[320px] bg-red-400 rounded-sm"
+              />
+            ) : (
+              <div
+                className="w-full h-full bg-red-400 bg-center bg-no-repeat rounded-sm"
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: "cover",
+                }}
+              ></div>
+            )}
           </div>
 
           {/* Right Column - Description */}
